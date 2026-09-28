@@ -7,12 +7,12 @@ public class Pessoa {
 	
 	
 	//construtor
-	public Pessoa(String nome, String cPF, String telefone) {
+	public Pessoa(String nome, String cpf, String telefone) {
 		super();
 		this.nome = nome;
-		CPF = cPF;
+		this.CPF = cpf;
 		this.telefone = telefone;
-	}
+	}	
 	
 	
 	public String getNome() {
@@ -24,8 +24,8 @@ public class Pessoa {
 	public String getCPF() {
 		return CPF;
 	}
-	public void setCPF(String cPF) {
-		CPF = cPF;
+	public void setCPF(String cpf) {
+		CPF = cpf;
 	}
 	public String getTelefone() {
 		return telefone;
