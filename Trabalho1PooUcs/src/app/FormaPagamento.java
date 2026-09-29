@@ -1,5 +1,6 @@
 package app;
 
-public class FormaPagamento {
+public interface FormaPagamento {
 
+	double aplicar(double valor);
 }
