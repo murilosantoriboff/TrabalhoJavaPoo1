@@ -1,10 +1,14 @@
 package app;
 
+import java.util.ArrayList;
+
 public class Motorista extends Pessoa{
 	private String cnh;
 	private Veiculo veiculo;
 	private boolean disponibilidade;
-	//adicionar lista avaliações
+	
+	//lista avaliacoes
+	ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
 	
 	//construtor
 	public Motorista(String nome, String cpf, String telefone) {
@@ -49,8 +53,32 @@ public class Motorista extends Pessoa{
 		}
 	}
 	
-	//ver se precisa dos metodos ocupar e liberar
-	//adicionar metodos adicionarAvaliacao e calcularMediaAvaliacoes()
+	public void ocupar() {
+		this.setDisponibilidade(false);
+	}
 	
+	public void desocupar() {
+		this.setDisponibilidade(true);
+	}
+	
+	public void adicionarAvaliacao(int nota, String descricao) {
+		
+		Avaliacao avaliacao = new Avaliacao(nota, descricao);
+		
+		avaliacoes.add(avaliacao);
+		
+	}
+
+	public double calcularMediaAvaliacoes() {
+		
+		int soma = 0;
+		
+		for(int i = 0; i < avaliacoes.size(); i++) {
+			soma += avaliacoes.get(i).getNota();
+		}
+		
+		soma /= avaliacoes.size();
+		return (soma);
+	}
 
 }
