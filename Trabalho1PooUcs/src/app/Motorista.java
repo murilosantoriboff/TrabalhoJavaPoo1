@@ -45,7 +45,7 @@ public class Motorista extends Pessoa{
 	//metodos adicionais
 	public void disponibilidade() {
 		if(this.getDisponibilidade()== true) {
-			System.out.println("o motorista " + getNome() + " esta disponivel");
+			System.out.println("O motorista " + getNome() + " esta disponivel!");
 		}
 	}
 	

@@ -16,10 +16,33 @@ public class Corrida {
 	private double valorFinal;
 	private Avaliacao avalicao;
 
+	//Construtor
 	public Corrida() {
 
 	}
 
+	//Métodos
+	public void aceitar(Motorista m) {
+		
+	}
+	
+	public void iniciar() {
+		
+	}
+	
+	public void finalizar() {
+		
+	}
+	
+	public void cancelar() {
+		
+	}
+	
+	public void avaliar(int nota, String comentario) {
+		
+	}
+	
+	//Getters / setters
 	public int getId() {
 		return id;
 	}

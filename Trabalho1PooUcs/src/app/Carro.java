@@ -2,6 +2,7 @@ package app;
 
 public class Carro extends Veiculo {
 
+	//Construtores
 	public Carro() {
 
 	}
@@ -10,6 +11,7 @@ public class Carro extends Veiculo {
 		super(placa, modelo, marca, ano, qtdPassageiros);
 	}
 
+	//Métodos
 	public void valorKm() {
 		valorKm = 2.00;
 	}
