@@ -42,6 +42,11 @@ public class Corrida {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "Corrida: " + id;
+	}
+	
 	//Getters / setters
 	public int getId() {
 		return id;
