@@ -17,4 +17,8 @@ public class Passageiro extends Pessoa{
 		corridas.add(corrida);
 	}
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }
