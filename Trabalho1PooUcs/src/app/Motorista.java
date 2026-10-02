@@ -7,16 +7,16 @@ public class Motorista extends Pessoa{
 	private Veiculo veiculo;
 	private boolean disponibilidade;
 	
-	//lista avaliacoes
-	private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
+
 	
-	//construtor
+	private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
+
+	
 	public Motorista(String nome, String cpf, String telefone) {
 		super(nome, cpf, telefone);
 		
 	}
 
-	//getters e setters
 	public String getCnh() {
 		return cnh;
 	}
@@ -46,7 +46,6 @@ public class Motorista extends Pessoa{
 		this.disponibilidade = disponibilidade;
 	}
 	
-	//metodos adicionais
 	public void disponibilidade() {
 		if(this.getDisponibilidade()== true) {
 			System.out.println("O motorista " + getNome() + " esta disponivel!");

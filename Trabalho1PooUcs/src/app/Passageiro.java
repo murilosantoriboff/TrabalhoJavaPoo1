@@ -9,10 +9,10 @@ public class Passageiro extends Pessoa{
 		
 	}
 
-	//lista de corridas
+
 	private ArrayList<Corrida> corridas = new ArrayList<>();
+
 	
-	//metodo adicionar corrida
 	public void adicionarcorrida(Corrida corrida) {
 		corridas.add(corrida);
 	}
