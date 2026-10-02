@@ -6,7 +6,7 @@ public abstract class Pessoa {
 	private String telefone;
 	
 	
-	//construtor
+
 	public Pessoa(String nome, String cpf, String telefone) {
 		super();
 		this.nome = nome;

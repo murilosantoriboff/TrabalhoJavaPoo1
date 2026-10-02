@@ -5,14 +5,14 @@ public class Avaliacao {
 	private int nota;
 	private String comentario;
 	
-	//construtor
+
 	public Avaliacao(int nota, String comentario) {
 	
 		this.nota = nota;
 		this.comentario = comentario;
 	}
 	
-	//metodos getters e setters
+	
 	public int getNota() {
 		return nota;
 	}
