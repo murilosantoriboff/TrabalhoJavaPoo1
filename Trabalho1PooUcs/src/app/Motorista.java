@@ -8,7 +8,7 @@ public class Motorista extends Pessoa{
 	private boolean disponibilidade;
 	
 	//lista avaliacoes
-	ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
+	private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
 	
 	//construtor
 	public Motorista(String nome, String cpf, String telefone) {

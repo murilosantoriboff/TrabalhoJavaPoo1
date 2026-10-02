@@ -9,7 +9,7 @@ public class EmpresaTransporte {
 	private ArrayList<Veiculo> veiculos = new ArrayList<>();
 	private ArrayList<Corrida> corridas = new ArrayList<>();
 	
-	//Contrutor
+	
 	public EmpresaTransporte() {
 		
 	}
@@ -36,7 +36,7 @@ public class EmpresaTransporte {
 	public Passageiro buscarPassageiroPorCpf(String cpf) {
 		
 		for(int i=0;i<passageiros.size();i++) {
-			if(cpf == passageiros.get(i).getCPF()) {
+			if(cpf.equalsIgnoreCase(passageiros.get(i).getCPF())) {
 				return passageiros.get(i);
 			}
 		}
@@ -49,7 +49,7 @@ public class EmpresaTransporte {
 	public Motorista buscarMotoristaPorCpf(String cpf) {
 		
 		for(int i=0;i<motoristas.size();i++) {
-			if(cpf == motoristas.get(i).getCPF()) {
+			if(cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
 				return motoristas.get(i);
 			}
 		}
@@ -62,7 +62,7 @@ public class EmpresaTransporte {
 	public Veiculo buscarVeiculoPorPlaca(String placa) {
 		
 		for(int i=0;i<veiculos.size();i++) {
-			if(placa == veiculos.get(i).getPlaca()) {
+			if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
 				System.out.println(veiculos.get(i));
 			}
 		}
