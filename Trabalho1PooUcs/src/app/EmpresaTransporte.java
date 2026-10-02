@@ -9,7 +9,6 @@ public class EmpresaTransporte {
 	private ArrayList<Veiculo> veiculos = new ArrayList<>();
 	private ArrayList<Corrida> corridas = new ArrayList<>();
 	
-	
 	public EmpresaTransporte() {
 		
 	}
