@@ -9,14 +9,12 @@ public class Passageiro extends Pessoa{
 		
 	}
 
-	ArrayList<Corrida> corridas = new ArrayList<>();
+
+	private ArrayList<Corrida> corridas = new ArrayList<>();
+
 	
 	public void adicionarcorrida(Corrida corrida) {
 		corridas.add(corrida);
 	}
 
-	@Override
-	public String toString() {
-		return super.toString();
-	}
 }

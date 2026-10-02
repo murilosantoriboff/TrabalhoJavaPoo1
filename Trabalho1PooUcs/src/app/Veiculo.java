@@ -80,4 +80,8 @@ public abstract class Veiculo {
 		this.valorVeiculo = valorVeiculo;
 	}
 
+	@Override
+	public String toString() {
+		return "Marca: " + this.marca + ", Modelo: " + this.modelo + ", Placa: " + this.placa;
+	}
 }

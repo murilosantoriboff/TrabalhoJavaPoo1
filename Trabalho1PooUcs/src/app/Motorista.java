@@ -7,7 +7,10 @@ public class Motorista extends Pessoa{
 	private Veiculo veiculo;
 	private boolean disponibilidade;
 	
-	ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
+
+	
+	private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
+
 	
 	public Motorista(String nome, String cpf, String telefone) {
 		super(nome, cpf, telefone);

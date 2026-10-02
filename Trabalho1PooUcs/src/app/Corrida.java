@@ -18,19 +18,33 @@ public class Corrida {
 
 	//Construtor
 	public Corrida() {
-
+		this.status = StatusCorrida.SOLICITADA;
 	}
 
 	//Métodos
 	public void aceitar(Motorista m) {
-		
+		m.ocupar();
+		this.status = StatusCorrida.ACEITA;
 	}
 	
 	public void iniciar() {
-		
+		if(this.status != StatusCorrida.ACEITA) {
+			System.out.println("Não é possivel iniciar uma corrida ainda não aceita ou em andamento!");
+		}
+		else {
+			this.status = StatusCorrida.EM_ANDAMENTO;
+		}
 	}
 	
-	public void finalizar() {
+	public void finalizar(Motorista m) {
+		if(this.status != StatusCorrida.EM_ANDAMENTO) {
+			System.out.println("Não é possivel finalizar uma corrida não iniciada!");
+		}
+		else {
+			calcularValor();
+			m.desocupar();
+			this.status = StatusCorrida.FINALIZADA;
+		}
 		
 	}
 	
@@ -39,6 +53,10 @@ public class Corrida {
 	}
 	
 	public void avaliar(int nota, String comentario) {
+		
+	}
+	
+	public void calcularValor() {
 		
 	}
 	

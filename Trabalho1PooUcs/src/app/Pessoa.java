@@ -33,6 +33,9 @@ public abstract class Pessoa {
 		this.telefone = telefone;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Nome: " + this.getNome() + ", CPF: " + this.getCPF() + ", Telefone: " + this.getTelefone();
+	}
 
 }
