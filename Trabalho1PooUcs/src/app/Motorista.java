@@ -12,9 +12,11 @@ public class Motorista extends Pessoa{
 	private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
 
 	
-	public Motorista(String nome, String cpf, String telefone) {
+	public Motorista(String nome, String cpf, String telefone, String cnh, Veiculo veiculo) {
 		super(nome, cpf, telefone);
-		
+		this.cnh = cnh;
+		this.veiculo = veiculo;
+		this.disponibilidade = true;
 	}
 
 	public String getCnh() {
@@ -69,15 +71,41 @@ public class Motorista extends Pessoa{
 	}
 
 	public double calcularMediaAvaliacoes() {
-		
-		int soma = 0;
-		
+
+		if(avaliacoes.isEmpty()) {
+			return 0;
+		}
+
+		double soma = 0;
+
 		for(int i = 0; i < avaliacoes.size(); i++) {
 			soma += avaliacoes.get(i).getNota();
 		}
-		
-		soma /= avaliacoes.size();
-		return (soma);
+
+		return soma / avaliacoes.size();
+	}
+
+	public void listarAvaliacoes() {
+
+		System.out.println("---Avaliações (" + avaliacoes.size() + ")---");
+
+		for(int i = 0; i < avaliacoes.size(); i++) {
+			System.out.println(avaliacoes.get(i));
+		}
+	}
+
+	@Override
+	public String toString() {
+		String situacao;
+
+		if(disponibilidade) {
+			situacao = "Disponível";
+		}
+		else {
+			situacao = "Em corrida";
+		}
+
+		return super.toString() + ", CNH: " + this.cnh + ", Situação: " + situacao;
 	}
 
 }

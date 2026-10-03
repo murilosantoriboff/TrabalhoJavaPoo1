@@ -8,6 +8,8 @@ public class Van extends Veiculo {
 
 	public Van(String placa, String modelo, String marca, int ano, int qtdPassageiros) {
 		super(placa, modelo, marca, ano, qtdPassageiros);
+		valorKm();
+		valorVeiculo();
 	}
 
 	public void valorKm() {
@@ -20,8 +22,7 @@ public class Van extends Veiculo {
 
 	@Override
 	public double calcularTarifa(double distancia) {
-		// TODO Auto-generated method stub
-		return 0;
+		return valorVeiculo + valorKm * distancia;
 	}
 
 }

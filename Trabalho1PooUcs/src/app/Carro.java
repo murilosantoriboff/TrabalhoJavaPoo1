@@ -9,6 +9,8 @@ public class Carro extends Veiculo {
 
 	public Carro(String placa, String modelo, String marca, int ano, int qtdPassageiros) {
 		super(placa, modelo, marca, ano, qtdPassageiros);
+		valorKm();
+		valorVeiculo();
 	}
 
 	//Métodos

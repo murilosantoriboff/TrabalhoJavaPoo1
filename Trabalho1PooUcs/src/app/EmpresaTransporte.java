@@ -13,23 +13,58 @@ public class EmpresaTransporte {
 		
 	}
 	
-	public void cadastrarPassageiro(Passageiro p) {
+	public boolean cadastrarPassageiro(Passageiro p) {
+
+		for(int i=0;i<passageiros.size();i++) {
+			if(p.getCPF().equalsIgnoreCase(passageiros.get(i).getCPF())) {
+				System.out.println("Já existe um passageiro com esse CPF!");
+				return false;
+			}
+		}
+
 		passageiros.add(p);
+		return true;
 	}
-	
-	public void cadastrarMotorista(Motorista m) {
+
+	public boolean cadastrarMotorista(Motorista m) {
+
+		for(int i=0;i<motoristas.size();i++) {
+			if(m.getCPF().equalsIgnoreCase(motoristas.get(i).getCPF())) {
+				System.out.println("Já existe um motorista com esse CPF!");
+				return false;
+			}
+			if(m.getVeiculo() == motoristas.get(i).getVeiculo()) {
+				System.out.println("Esse veiculo já pertence ao motorista " + motoristas.get(i).getNome() + "!");
+				return false;
+			}
+		}
+
 		motoristas.add(m);
+		return true;
 	}
-	
-	public void cadastrarVeiculo(Veiculo v) {
+
+	public boolean cadastrarVeiculo(Veiculo v) {
+
+		for(int i=0;i<veiculos.size();i++) {
+			if(v.getPlaca().equalsIgnoreCase(veiculos.get(i).getPlaca())) {
+				System.out.println("Já existe um veiculo com essa placa!");
+				return false;
+			}
+		}
+
 		veiculos.add(v);
+		return true;
 	}
 	
-	//nao finalizei
-	public Corrida solicitarCorrida(Passageiro p, String origem, String destino, double distancia, 
+	public Corrida solicitarCorrida(Passageiro p, String origem, String destino, double distancia,
 			CategoriaCorrida cat, FormaPagamento fp) {
-		
-		return new Corrida();
+
+		Corrida corrida = new Corrida(p, origem, destino, distancia, cat, fp);
+
+		corridas.add(corrida);
+		p.adicionarCorrida(corrida);
+
+		return corrida;
 	}
 	
 	public Passageiro buscarPassageiroPorCpf(String cpf) {

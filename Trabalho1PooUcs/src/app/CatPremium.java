@@ -13,11 +13,11 @@ public class CatPremium extends CategoriaCorrida {
 
     @Override
     public double aplicarAcrescimo(double valor) {
-        throw new UnsupportedOperationException("CatPremium.aplicarAcrescimo ainda não foi implementado.");
+        return valor * (1 + ACRESCIMO);
     }
 
     @Override
     public boolean aceitaVeiculo(Veiculo v) {
-        throw new UnsupportedOperationException("CatPremium.aceitaVeiculo ainda não foi implementado.");
+        return v.getQtdPassageiros() >= LUGARES_MINIMOS && v.getAno() >= ANO_MINIMO;
     }
 }

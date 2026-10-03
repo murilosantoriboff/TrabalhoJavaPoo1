@@ -3,18 +3,28 @@ package app;
 import java.util.ArrayList;
 
 public class Passageiro extends Pessoa{
-	
-	public Passageiro(String nome, String cpf, String telefone) {
-		super(nome, cpf, telefone);
-		
-	}
-
 
 	private ArrayList<Corrida> corridas = new ArrayList<>();
 
-	
-	public void adicionarcorrida(Corrida corrida) {
+	public Passageiro(String nome, String cpf, String telefone) {
+		super(nome, cpf, telefone);
+	}
+
+	public void adicionarCorrida(Corrida corrida) {
 		corridas.add(corrida);
+	}
+
+	public void listarCorridas() {
+
+		System.out.println("---Corridas do passageiro " + getNome() + "---");
+
+		if(corridas.isEmpty()) {
+			System.out.println("Nenhuma corrida.");
+		}
+
+		for(int i=0;i<corridas.size();i++) {
+			System.out.println(corridas.get(i));
+		}
 	}
 
 }
