@@ -13,7 +13,7 @@ public class Carro extends Veiculo {
 		valorVeiculo();
 	}
 
-	//Métodos
+	//Metodos
 	public void valorKm() {
 		valorKm = 2.00;
 	}
