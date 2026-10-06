@@ -16,6 +16,10 @@ public class Corrida {
 	private double valorFinal;
 	private Avaliacao avaliacao;
 
+	public Corrida() {
+		
+	}
+	
 	public Corrida(Passageiro passageiro, String origem, String destino, double distancia,
 			CategoriaCorrida categoria, FormaPagamento formaPagamento) {
 		contador++;

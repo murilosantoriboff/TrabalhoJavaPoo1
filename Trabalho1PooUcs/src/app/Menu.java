@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Menu {
 
 	private Scanner sc = new Scanner(System.in);
+	private EmpresaTransporte empresa;
+	private Corrida corrida;
 	
 	public Menu() {
 		
@@ -68,13 +70,13 @@ public class Menu {
 
 			switch(opcao) {
 			case 1:
-				cadastrarPassageiro();
+				empresa.cadastrarPassageiro(null);
 				break;
 			case 2:
-				cadastrarMotorista();
+				empresa.cadastrarMotorista(null);
 				break;
 			case 3:
-				cadastrarVeiculo();
+				empresa.cadastrarVeiculo(null);
 				break;
 			case 0:
 				break;
@@ -105,22 +107,22 @@ public class Menu {
 
 			switch(opcao) {
 			case 1:
-				solicitarCorrida();
+				empresa.solicitarCorrida(null, null, null, 0, null, null);
 				break;
 			case 2:
-				aceitarCorrida();
+				corrida.aceitar(null);
 				break;
 			case 3:
-				iniciarCorrida();
+				corrida.iniciar();
 				break;
 			case 4:
-				finalizarCorrida();
+				corrida.finalizar();
 				break;
 			case 5:
-				cancelarCorrida();
+				corrida.cancelar();
 				break;
 			case 6:
-				avaliarMotorista();
+				corrida.avaliar(0, null);
 				break;
 			case 0:
 				break;
@@ -148,13 +150,13 @@ public class Menu {
 
 			switch(opcao) {
 			case 1:
-				empresa.listarCorridas();
+				empresa.listarCorridasSolicitadas();
 				break;
 			case 2:
-				consultarPassageiro();
+				empresa.buscarPassageiroPorCpf(null);
 				break;
 			case 3:
-				consultarMotorista();
+				empresa.buscarPassageiroPorCpf(null);
 				break;
 			case 0:
 				break;
