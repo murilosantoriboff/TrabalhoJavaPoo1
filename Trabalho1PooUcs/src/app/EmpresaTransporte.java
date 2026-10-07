@@ -1,8 +1,10 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EmpresaTransporte {
+
 
 	private ArrayList<Passageiro> passageiros = new ArrayList<>();
 	private ArrayList<Motorista> motoristas = new ArrayList<>();
@@ -13,14 +15,30 @@ public class EmpresaTransporte {
 		
 	}
 	
-	public void cadastrarPassageiro(Passageiro p) {
+	public void cadastrarPassageiro(Scanner in) {
 
+		String nome = null;
+		String cpf = null;
+		String telefone = null;
+		
+		
+		System.out.println("Digite o nome do passageiro: ");
+		nome = in.nextLine();
+		
+		System.out.println("Digite o CPF do passageiro: ");
+		cpf = in.nextLine();
+		
 		for(int i=0;i<passageiros.size();i++) {
-			if(p.getCPF().equalsIgnoreCase(passageiros.get(i).getCPF())) {
+			if(cpf.equalsIgnoreCase(passageiros.get(i).getCPF())) {
 				System.out.println("Já existe um passageiro com esse CPF!");
 			}
 		}
-
+		
+		System.out.println("Digite o telefone do passageiro: ");
+		telefone = in.nextLine();
+		
+		Passageiro p = new Passageiro(nome, cpf, telefone);
+		
 		passageiros.add(p);
 	}
 
@@ -60,11 +78,15 @@ public class EmpresaTransporte {
 		return corrida;
 	}
 	
-	public Passageiro buscarPassageiroPorCpf(String cpf) {
+	public String buscarPassageiroPorCpf(Scanner in) {
+		String cpf = null;
+		
+		System.out.println("Digite o CPF do passageiro a ser consultado: ");
+		cpf = in.nextLine();
 		
 		for(int i=0;i<passageiros.size();i++) {
 			if(cpf.equalsIgnoreCase(passageiros.get(i).getCPF())) {
-				return passageiros.get(i);
+				return passageiros.get(i).toString();
 			}
 		}
 		

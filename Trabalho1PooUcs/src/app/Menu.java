@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class Menu {
 
 	private Scanner sc = new Scanner(System.in);
-	private EmpresaTransporte empresa;
-	private Corrida corrida;
+	private EmpresaTransporte empresa = new EmpresaTransporte();
+	private Corrida corrida = new Corrida();
 	
 	public Menu() {
 		
@@ -30,7 +30,7 @@ public class Menu {
 			System.out.println("3 - Menu Consultas");
 			System.out.println("0 - Fechar menu");
 			System.out.println("=========================================");
-			opcao = sc.nextInt();
+			opcao = Integer.parseInt(sc.nextLine());
 			
 			
 			switch(opcao) {
@@ -66,11 +66,11 @@ public class Menu {
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
-			opcao = sc.nextInt();
+			opcao = Integer.parseInt(sc.nextLine());
 
 			switch(opcao) {
 			case 1:
-				empresa.cadastrarPassageiro(null);
+				empresa.cadastrarPassageiro(sc);
 				break;
 			case 2:
 				empresa.cadastrarMotorista(null);
@@ -103,7 +103,7 @@ public class Menu {
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
-			opcao = sc.nextInt();
+			opcao = Integer.parseInt(sc.nextLine());
 
 			switch(opcao) {
 			case 1:
@@ -146,7 +146,7 @@ public class Menu {
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
-			opcao = sc.nextInt();
+			opcao = Integer.parseInt(sc.nextLine());
 
 			switch(opcao) {
 			case 1:
