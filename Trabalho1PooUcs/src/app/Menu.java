@@ -142,11 +142,11 @@ public class Menu {
 			System.out.println(" SISTEMA DE TRANSPORTE - Consultas");
 			System.out.println("=========================================");
 			System.out.println("1 - Listar corridas");
-			System.out.println("2 - Consultar passageiro");
-			System.out.println("3 - Consultar motorista");
+			System.out.println("2 - Listar passageiros");
+			System.out.println("3 - Listar motoristas");
 			System.out.println("4 - Consultar veiculo");
-			System.out.println("5 - Listar passageiros");
-			System.out.println("6 - Listar motoristas");
+			System.out.println("5 - Consultar passageiro");
+			System.out.println("6 - Consultar motorista");
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
@@ -156,18 +156,18 @@ public class Menu {
 			case 1:
 				empresa.listarCorridasSolicitadas();
 				break;
-			case 2:
+			case 5:
 				buscaPassageiro(sc);
 				break;
-			case 3:
+			case 6:
 				buscaMotorista(sc);
 				break;
 			case 4:
 				buscaVeiculo(sc);
-			case 5:
+			case 2:
 				empresa.listarPassageiros();
 				break;
-			case 6:
+			case 3:
 				empresa.listarMotoristasDisponiveis();
 				break;
 			case 0:
