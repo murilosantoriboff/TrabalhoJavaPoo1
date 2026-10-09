@@ -74,14 +74,31 @@ public class EmpresaTransporte {
 		motoristas.add(m);
 	}
 
-	public void cadastrarVeiculo(Veiculo v) {
+	//metodo nao finalizado
+	public void cadastrarVeiculo(Scanner in) {
 
+		String tipo = null;
+		String modelo = null;
+		String marca = null;
+		String placa = null;
+		int ano = 0;
+		
 		for(int i=0;i<veiculos.size();i++) {
-			if(v.getPlaca().equalsIgnoreCase(veiculos.get(i).getPlaca())) {
+			if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
 				System.out.println("Já existe um veiculo com essa placa!");
 			}
 		}
-
+		
+		if(tipo.equalsIgnoreCase("carro")) {
+			Carro v = new Carro();
+		}
+		else if(tipo.equalsIgnoreCase("moto")) {
+			Moto v = new Moto();
+		}
+		else if(tipo.equalsIgnoreCase("van")) {
+			Van v = new Van();
+		}
+		
 		veiculos.add(v);
 	}
 	
