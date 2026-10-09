@@ -21,11 +21,10 @@ public class EmpresaTransporte {
 		String cpf = null;
 		String telefone = null;
 		
-		
 		System.out.println("Digite o nome do passageiro: ");
 		nome = in.nextLine();
 		
-		System.out.println("Digite o CPF do passageiro: ");
+		System.out.println("Digite o CPF (apenas numeros) do passageiro: ");
 		cpf = in.nextLine();
 		
 		for(int i=0;i<passageiros.size();i++) {
@@ -42,16 +41,35 @@ public class EmpresaTransporte {
 		passageiros.add(p);
 	}
 
-	public void cadastrarMotorista(Motorista m) {
-
+	public void cadastrarMotorista(Scanner in) {
+		
+		String nome = null;
+		String cpf = null;
+		String telefone = null;
+		String cnh = null;
+		
+		System.out.println("Digite o nome do motorista: ");
+		nome = in.nextLine();
+		
+		System.out.println("Digite o CPF (apenas numeros) do motorista: ");
+		cpf = in.nextLine();
+		
 		for(int i=0;i<motoristas.size();i++) {
-			if(m.getCPF().equalsIgnoreCase(motoristas.get(i).getCPF())) {
+			if(cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
 				System.out.println("Já existe um motorista com esse CPF!");
 			}
-			if(m.getVeiculo() == motoristas.get(i).getVeiculo()) {
-				System.out.println("Esse veiculo já pertence ao motorista " + motoristas.get(i).getNome() + "!");
-			}
+			//if(m.getVeiculo() == motoristas.get(i).getVeiculo()) {
+				//System.out.println("Esse veiculo já pertence ao motorista " + motoristas.get(i).getNome() + "!");
+			//}
 		}
+		
+		System.out.println("Digite o telefone do motorista: ");
+		telefone = in.nextLine();
+		
+		System.out.println("Digite a cnh do motorista: ");
+		cnh = in.nextLine();
+		
+		Motorista m = new Motorista(nome, cpf, telefone, cnh, null);
 
 		motoristas.add(m);
 	}
@@ -78,32 +96,32 @@ public class EmpresaTransporte {
 		return corrida;
 	}
 	
-	public String buscarPassageiroPorCpf(Scanner in) {
+	public Passageiro buscarPassageiroPorCpf(Scanner in) {
 		String cpf = null;
 		
-		System.out.println("Digite o CPF do passageiro a ser consultado: ");
+		System.out.println("Digite o CPF (apenas numeros) do passageiro a ser consultado: ");
 		cpf = in.nextLine();
 		
 		for(int i=0;i<passageiros.size();i++) {
 			if(cpf.equalsIgnoreCase(passageiros.get(i).getCPF())) {
-				return passageiros.get(i).toString();
+				return passageiros.get(i);
 			}
 		}
-		
-		System.out.println("Passageiro não encontrado!");
-		
 		return null;
 	}
 	
-	public Motorista buscarMotoristaPorCpf(String cpf) {
+	public Motorista buscarMotoristaPorCpf(Scanner in) {
+		
+		String cpf = null;
+		
+		System.out.println("Digite o CPF (apenas numeros) do motorista a ser consultado: ");
+		cpf = in.nextLine();
 		
 		for(int i=0;i<motoristas.size();i++) {
 			if(cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
 				return motoristas.get(i);
 			}
 		}
-		
-		System.out.println("Motorista não encontrado!");
 		
 		return null;
 	}
@@ -154,4 +172,13 @@ public class EmpresaTransporte {
 			}
 		}
 	}
+	
+	public void listarPassageiros() {
+		System.out.println("---Passageiros Cadastrados---");
+		
+		for(int i=0; i<passageiros.size();i++) {
+			System.out.println(passageiros.get(i).getNome());
+		}
+	}
+	
 }

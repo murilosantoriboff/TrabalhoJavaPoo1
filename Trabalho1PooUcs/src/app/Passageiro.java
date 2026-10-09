@@ -27,4 +27,8 @@ public class Passageiro extends Pessoa{
 		}
 	}
 
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

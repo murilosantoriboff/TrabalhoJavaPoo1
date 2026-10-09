@@ -1,5 +1,6 @@
 package app;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -73,7 +74,7 @@ public class Menu {
 				empresa.cadastrarPassageiro(sc);
 				break;
 			case 2:
-				empresa.cadastrarMotorista(null);
+				empresa.cadastrarMotorista(sc);
 				break;
 			case 3:
 				empresa.cadastrarVeiculo(null);
@@ -133,7 +134,7 @@ public class Menu {
 	}
 	
 	private void menuConsultas() {
-		int opcao;
+		int opcao = 0;
 
 		do {
 			System.out.println();
@@ -143,20 +144,31 @@ public class Menu {
 			System.out.println("1 - Listar corridas");
 			System.out.println("2 - Consultar passageiro");
 			System.out.println("3 - Consultar motorista");
+			System.out.println("4 - Consultar veiculo");
+			System.out.println("5 - Listar passageiros");
+			System.out.println("6 - Listar motoristas");
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
 			opcao = Integer.parseInt(sc.nextLine());
-
+			
 			switch(opcao) {
 			case 1:
 				empresa.listarCorridasSolicitadas();
 				break;
 			case 2:
-				empresa.buscarPassageiroPorCpf(null);
+				buscaPassageiro(sc);
 				break;
 			case 3:
-				empresa.buscarPassageiroPorCpf(null);
+				buscaMotorista(sc);
+				break;
+			case 4:
+				buscaVeiculo(sc);
+			case 5:
+				empresa.listarPassageiros();
+				break;
+			case 6:
+				empresa.listarMotoristasDisponiveis();
 				break;
 			case 0:
 				break;
@@ -164,5 +176,19 @@ public class Menu {
 				System.out.println("Opção inválida!");
 			}
 		} while(opcao != 0);
+	}
+	
+	private void buscaPassageiro(Scanner in) {
+		Passageiro p = empresa.buscarPassageiroPorCpf(in);
+		System.out.println(p.toString());
+	}
+	
+	private void buscaMotorista(Scanner in) {
+		Motorista m = empresa.buscarMotoristaPorCpf(in);
+		System.out.println(m.toString());
+	}
+	
+	private void buscaVeiculo(Scanner in) {
+		
 	}
 }
