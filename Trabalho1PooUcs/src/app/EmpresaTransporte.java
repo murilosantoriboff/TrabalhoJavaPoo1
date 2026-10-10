@@ -65,10 +65,8 @@ public class EmpresaTransporte {
 					System.out.println("Já existe um motorista com esse CPF!");
 					verificaCpf = 0;
 				}
-				else {
-					verificaCpf = 1;
-				}
 			}
+			verificaCpf = 1;
 		}
 		
 		System.out.println("Digite o telefone do motorista: ");
@@ -80,11 +78,10 @@ public class EmpresaTransporte {
 		while(verificaVeiculo != 1) {
 			
 			System.out.println("Escolha o seu veículo cadastrado pela placa:");
-			opcao = in.nextInt();
-			
 			for(int i=0; i<veiculos.size(); i++) {
 				System.out.println(i + " - " + veiculos.get(i).getPlaca());
 			}
+			opcao = Integer.parseInt(in.nextLine());
 			
 			if(opcao < 0 || opcao > veiculos.size()) {
 				System.out.println("Opção inválida!");
@@ -126,10 +123,8 @@ public class EmpresaTransporte {
 				if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
 					System.out.println("Já existe um veiculo com essa placa!");
 				}
-				else {
-					verificaPlaca = 1;
-				}
 			}
+			verificaPlaca = 1;
 		}
 		
 		System.out.println("Digite o modelo do veiculo(Civic, Astra, etc..): ");
@@ -139,7 +134,7 @@ public class EmpresaTransporte {
 		marca = in.nextLine();
 		
 		System.out.println("Digite o ano do veículo: ");
-		ano = in.nextInt();
+		ano = Integer.parseInt(in.nextLine());
 		
 		if(tipo.equalsIgnoreCase("carro")) {
 			
@@ -148,7 +143,7 @@ public class EmpresaTransporte {
 			while(verificaPassageiro != 1) {
 				
 				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
-				qtdPassageiros = in.nextInt();
+				qtdPassageiros = Integer.parseInt(in.nextLine());
 				
 				if(qtdPassageiros < 1 || qtdPassageiros > 4) {
 					System.out.println("Quantidade de passageiros inválida!");
@@ -167,7 +162,7 @@ public class EmpresaTransporte {
 			while(verificaPassageiro != 1) {
 					
 				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
-				qtdPassageiros = in.nextInt();
+				qtdPassageiros = Integer.parseInt(in.nextLine());
 				
 				if(qtdPassageiros < 1 || qtdPassageiros > 1) {
 					System.out.println("Quantidade de passageiros inválida!");
@@ -185,11 +180,11 @@ public class EmpresaTransporte {
 			while(verificaPassageiro != 1) {
 					
 				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
-				qtdPassageiros = in.nextInt();
+				qtdPassageiros = Integer.parseInt(in.nextLine());
 				
 				if(qtdPassageiros < 6 || qtdPassageiros > 19) {
 					System.out.println("Quantidade de passageiros inválida!");
-					System.out.println("Para ser considerado VAN, a quantidade deve ser no máximo 19 e no mínimo 5!");
+					System.out.println("Para ser considerado VAN, a quantidade deve ser no máximo 19 e no mínimo 6!");
 				}
 				else {
 					verificaPassageiro = 1;
@@ -245,15 +240,18 @@ public class EmpresaTransporte {
 		return null;
 	}
 	
-	public Veiculo buscarVeiculoPorPlaca(String placa) {
+	public Veiculo buscarVeiculoPorPlaca(Scanner in) {
+		
+		String placa = null;
+		
+		System.out.println("Digite a placa do veículo que deseja consultar: ");
+		placa = in.nextLine();
 		
 		for(int i=0;i<veiculos.size();i++) {
 			if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
 				System.out.println(veiculos.get(i));
 			}
 		}
-		
-		System.out.println("Veiculo não encontrado!");
 		
 		return null;
 	}

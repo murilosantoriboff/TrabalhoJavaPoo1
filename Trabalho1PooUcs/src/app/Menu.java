@@ -77,7 +77,7 @@ public class Menu {
 				empresa.cadastrarMotorista(sc);
 				break;
 			case 3:
-				empresa.cadastrarVeiculo(null);
+				empresa.cadastrarVeiculo(sc);
 				break;
 			case 0:
 				break;
@@ -156,19 +156,19 @@ public class Menu {
 			case 1:
 				empresa.listarCorridasSolicitadas();
 				break;
-			case 5:
-				buscaPassageiro(sc);
-				break;
-			case 6:
-				buscaMotorista(sc);
-				break;
-			case 4:
-				buscaVeiculo(sc);
 			case 2:
 				empresa.listarPassageiros();
 				break;
 			case 3:
 				empresa.listarMotoristasDisponiveis();
+				break;
+			case 4:
+				buscaVeiculo(sc);
+			case 5:
+				buscaPassageiro(sc);
+				break;
+			case 6:
+				buscaMotorista(sc);
 				break;
 			case 0:
 				break;
@@ -189,6 +189,7 @@ public class Menu {
 	}
 	
 	private void buscaVeiculo(Scanner in) {
-		
+		Veiculo v = empresa.buscarVeiculoPorPlaca(in);
+		System.out.println(v.toString());
 	}
 }
