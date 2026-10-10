@@ -31,7 +31,13 @@ public class Menu {
 			System.out.println("3 - Menu Consultas");
 			System.out.println("0 - Fechar menu");
 			System.out.println("=========================================");
-			opcao = Integer.parseInt(sc.nextLine());
+			try {
+				opcao = Integer.parseInt(sc.nextLine().trim());
+			} catch(NumberFormatException e) {
+				System.out.println("Opcao invalida! Digite apenas o numero da opcao.");
+				opcao = -1;
+				continue;
+			}
 			
 			
 			switch(opcao) {
@@ -48,7 +54,7 @@ public class Menu {
 				System.out.println("Sistema encerrado.");
 				break;
 			default:
-				System.out.println("Opção inválida!");
+				System.out.println("Opcao invalida!");
 			}
 	} while(opcao != 0);
 	}
@@ -67,7 +73,13 @@ public class Menu {
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
-			opcao = Integer.parseInt(sc.nextLine());
+			try {
+				opcao = Integer.parseInt(sc.nextLine().trim());
+			} catch(NumberFormatException e) {
+				System.out.println("Opcao invalida! Digite apenas o numero da opcao.");
+				opcao = -1;
+				continue;
+			}
 
 			switch(opcao) {
 			case 1:
@@ -82,7 +94,7 @@ public class Menu {
 			case 0:
 				break;
 			default:
-				System.out.println("Opção inválida!");
+				System.out.println("Opcao invalida!");
 			}
 		} while(opcao != 0);
 	}
@@ -104,7 +116,13 @@ public class Menu {
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
-			opcao = Integer.parseInt(sc.nextLine());
+			try {
+				opcao = Integer.parseInt(sc.nextLine().trim());
+			} catch(NumberFormatException e) {
+				System.out.println("Opcao invalida! Digite apenas o numero da opcao.");
+				opcao = -1;
+				continue;
+			}
 
 			switch(opcao) {
 			case 1:
@@ -150,7 +168,13 @@ public class Menu {
 			System.out.println("0 - Voltar");
 			System.out.println("=========================================");
 			System.out.println("Opção: ");
-			opcao = Integer.parseInt(sc.nextLine());
+			try {
+				opcao = Integer.parseInt(sc.nextLine().trim());
+			} catch(NumberFormatException e) {
+				System.out.println("Opcao invalida! Digite apenas o numero da opcao.");
+				opcao = -1;
+				continue;
+			}
 			
 			switch(opcao) {
 			case 1:
@@ -173,23 +197,34 @@ public class Menu {
 			case 0:
 				break;
 			default:
-				System.out.println("Opção inválida!");
+				System.out.println("Opcao invalida!");
 			}
 		} while(opcao != 0);
 	}
 	
 	private void buscaPassageiro(Scanner in) {
 		Passageiro p = empresa.buscarPassageiroPorCpf(in);
+		if(p == null) {
+			System.out.println("Passageiro nao encontrado!");
+			return;
+		}
 		System.out.println(p.toString());
 	}
 	
 	private void buscaMotorista(Scanner in) {
 		Motorista m = empresa.buscarMotoristaPorCpf(in);
+		if(m == null) {
+			System.out.println("Motorista nao encontrado!");
+			return;
+		}
 		System.out.println(m.toString());
 	}
 	
 	private void buscaVeiculo(Scanner in) {
 		Veiculo v = empresa.buscarVeiculoPorPlaca(in);
-		System.out.println(v.toString());
+		//buscarVeiculoPorPlaca ja imprime o veículo (ou a mensagem de nao encontrado) e retorna null
+		if(v != null) {
+			System.out.println(v.toString());
+		}
 	}
 }

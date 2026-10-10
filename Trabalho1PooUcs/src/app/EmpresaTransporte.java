@@ -1,5 +1,6 @@
 package app;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -17,186 +18,265 @@ public class EmpresaTransporte {
 	
 	public void cadastrarPassageiro(Scanner in) {
 
-		String nome = null;
-		String cpf = null;
-		String telefone = null;
-		
-		System.out.println("Digite o nome do passageiro: ");
-		nome = in.nextLine();
-		
-		System.out.println("Digite o CPF (apenas numeros) do passageiro: ");
-		cpf = in.nextLine();
-		
-		for(int i=0;i<passageiros.size();i++) {
-			if(cpf.equalsIgnoreCase(passageiros.get(i).getCPF())) {
-				System.out.println("Já existe um passageiro com esse CPF!");
+		String nome = "";
+		String cpf = "";
+		String telefone = "";
+
+		while(nome.isEmpty()) {
+			System.out.println("Digite o nome do passageiro: ");
+			String digitado = in.nextLine().trim();
+
+			if(digitado.isEmpty() || digitado.matches(".*\\d.*")) {
+				// Nao sabia como verificar se o numero tinha algum numero e achei isso no StackOverflow
+				System.out.println("Nome invalido! Nao pode ficar vazio nem conter numeros.");
+			} else {
+				nome = digitado;
 			}
 		}
-		
-		System.out.println("Digite o telefone do passageiro: ");
-		telefone = in.nextLine();
-		
-		Passageiro p = new Passageiro(nome, cpf, telefone);
-		
-		passageiros.add(p);
+
+		while(cpf.isEmpty()) {
+			System.out.println("Digite o CPF (apenas numeros) do passageiro: ");
+			String digitado = in.nextLine().trim();
+
+			boolean existe = false;
+			for(Passageiro p : passageiros) {
+				if(p.getCPF().equals(digitado)) {
+					existe = true;
+				}
+			}
+
+			if(!digitado.matches("\\d{11}")) {
+				System.out.println("CPF invalido! Digite exatamente 11 numeros.");
+			} else if(existe) {
+				System.out.println("Ja existe um passageiro com esse CPF!");
+			} else {
+				cpf = digitado;
+			}
+		}
+
+		while(telefone.isEmpty()) {
+			System.out.println("Digite o telefone do passageiro (DDD + numero): ");
+			String digitado = in.nextLine().trim();
+
+			if(!digitado.matches("\\d{10,11}")) {
+				System.out.println("Telefone invalido! Digite 10 ou 11 numeros.");
+			} else {
+				telefone = digitado;
+			}
+		}
+
+		passageiros.add(new Passageiro(nome, cpf, telefone));
 		System.out.println("Passageiro Cadastrado!");
 	}
 
 	//REALIZAR A VERIFICAÇÃO DE VEICULO, VERIFICAR SE UM MOTORISTA JA POSSUI O VEICULO ESCOLHIDO NA HORA DE ASSOCIAR
 	public void cadastrarMotorista(Scanner in) {
-		
-		Veiculo v = null ;
-		String nome = null;
-		String cpf = null;
-		String telefone = null;
-		String cnh = null;
-		int opcao=0;
-		int verificaVeiculo = 0, verificaCpf = 0;
-		
-		System.out.println("Digite o nome do motorista: ");
-		nome = in.nextLine();
-		
-		while(verificaCpf != 1) {
-			System.out.println("Digite o CPF (apenas numeros) do motorista: ");
-			cpf = in.nextLine();
-			
-			for(int i=0;i<motoristas.size();i++) {
-				if(cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
-					System.out.println("Já existe um motorista com esse CPF!");
-					verificaCpf = 0;
+
+		if(veiculos.isEmpty()) {
+			System.out.println("Nenhum veiculo cadastrado! Cadastre um veiculo antes de cadastrar o motorista.");
+			return;
+		}
+
+		// guarda so os veiculos que ainda nao tem motorista
+		ArrayList<Veiculo> livres = new ArrayList<>();
+		for(Veiculo veiculo : veiculos) {
+			boolean emUso = false;
+			for(Motorista motorista : motoristas) {
+				if(motorista.getVeiculo() == veiculo) {
+					emUso = true;
 				}
 			}
-			verificaCpf = 1;
+			if(!emUso) {
+				livres.add(veiculo);
+			}
 		}
-		
-		System.out.println("Digite o telefone do motorista: ");
-		telefone = in.nextLine();
-		
-		System.out.println("Digite a cnh do motorista: ");
-		cnh = in.nextLine();
-		
-		while(verificaVeiculo != 1) {
-			
-			System.out.println("Escolha o seu veículo cadastrado pela placa:");
-			for(int i=0; i<veiculos.size(); i++) {
-				System.out.println(i + " - " + veiculos.get(i).getPlaca());
-			}
-			opcao = Integer.parseInt(in.nextLine());
-			
-			if(opcao < 0 || opcao > veiculos.size()) {
-				System.out.println("Opção inválida!");
-				verificaVeiculo=0;
-			}
-			else {
-				verificaVeiculo=1;
-			}
-			
-		}
-		
-		v = veiculos.get(opcao);
-		
-		Motorista m = new Motorista(nome, cpf, telefone, cnh, v);
 
-		motoristas.add(m);
+		if(livres.isEmpty()) {
+			System.out.println("Todos os veiculos ja estao associados a um motorista! Cadastre um novo veiculo.");
+			return;
+		}
+
+		String nome = "";
+		String cpf = "";
+		String telefone = "";
+		String cnh = "";
+		Veiculo veiculoEscolhido = null;
+
+		while(nome.isEmpty()) {
+			System.out.println("Digite o nome do motorista: ");
+			String digitado = in.nextLine().trim();
+
+			if(digitado.isEmpty() || digitado.matches(".*\\d.*")) {
+				System.out.println("Nome invalido! Nao pode ficar vazio nem conter numeros.");
+			} else {
+				nome = digitado;
+			}
+		}
+
+		while(cpf.isEmpty()) {
+			System.out.println("Digite o CPF (apenas numeros) do motorista: ");
+			String digitado = in.nextLine().trim();
+
+			boolean existe = false;
+			for(Motorista motorista : motoristas) {
+				if(motorista.getCPF().equals(digitado)) {
+					existe = true;
+				}
+			}
+
+			if(!digitado.matches("\\d{11}")) {
+				System.out.println("CPF invalido! Digite exatamente 11 numeros.");
+			} else if(existe) {
+				System.out.println("Ja existe um motorista com esse CPF!");
+			} else {
+				cpf = digitado;
+			}
+		}
+
+		while(telefone.isEmpty()) {
+			System.out.println("Digite o telefone do motorista (DDD + numero): ");
+			String digitado = in.nextLine().trim();
+
+			if(!digitado.matches("\\d{10,11}")) {
+				System.out.println("Telefone invalido! Digite 10 ou 11 numeros.");
+			} else {
+				telefone = digitado;
+			}
+		}
+
+		while(cnh.isEmpty()) {
+			System.out.println("Digite a CNH do motorista: ");
+			String digitado = in.nextLine().trim();
+
+			if(!digitado.matches("\\d{11}")) {
+				System.out.println("CNH invalida! Digite exatamente 11 numeros.");
+			} else {
+				cnh = digitado;
+			}
+		}
+
+		while(veiculoEscolhido == null) {
+			System.out.println("Escolha o seu veiculo pela placa:");
+			for(int i = 0; i < livres.size(); i++) {
+				System.out.println(i + " - " + livres.get(i).getPlaca());
+			}
+
+			try {
+				int opcao = Integer.parseInt(in.nextLine().trim());
+				veiculoEscolhido = livres.get(opcao);
+			} catch(NumberFormatException | IndexOutOfBoundsException e) {
+				System.out.println("Opção invalida! Digite o número de um dos veiculos listados.");
+			}
+		}
+
+		motoristas.add(new Motorista(nome, cpf, telefone, cnh, veiculoEscolhido));
 		System.out.println("Motorista cadastrado e veiculo associado!");
 	}
 
 	public void cadastrarVeiculo(Scanner in) {
 
-		int verificaPlaca = 0, verificaPassageiro;
-		Veiculo v = null;
-		String tipo = null;
-		String modelo = null;
-		String marca = null;
-		String placa = null;
+		String tipo = "";
+		String placa = "";
+		String modelo = "";
+		String marca = "";
 		int ano = 0;
 		int qtdPassageiros = 0;
-		
-		System.out.println("Digite o tipo do veículo (Carro, Van ou Moto): ");
-		tipo = in.nextLine();
-		
-		while(verificaPlaca != 1) {
-			System.out.println("Digite a placa do veículo: ");
-			placa = in.nextLine();
-			
-			for(int i=0;i<veiculos.size();i++) {
-				if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
-					System.out.println("Já existe um veiculo com essa placa!");
-				}
+		int anoMaximo = Year.now().getValue() + 1;
+
+		while(tipo.isEmpty()) {
+			System.out.println("Digite o tipo do veiculo (Carro, Van ou Moto): ");
+			String digitado = in.nextLine().trim().toLowerCase();
+
+			if(digitado.equals("carro") || digitado.equals("moto") || digitado.equals("van")) {
+				tipo = digitado;
+			} else {
+				System.out.println("Tipo invalido! Digite Carro, Van ou Moto.");
 			}
-			verificaPlaca = 1;
 		}
-		
-		System.out.println("Digite o modelo do veiculo(Civic, Astra, etc..): ");
-		modelo = in.nextLine();
-		
-		System.out.println("Digite a marca do veículo(Honda, Chevrolet, etc..): ");
-		marca = in.nextLine();
-		
-		System.out.println("Digite o ano do veículo: ");
-		ano = Integer.parseInt(in.nextLine());
-		
-		if(tipo.equalsIgnoreCase("carro")) {
-			
-			verificaPassageiro = 0;
-			
-			while(verificaPassageiro != 1) {
-				
-				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
-				qtdPassageiros = Integer.parseInt(in.nextLine());
-				
-				if(qtdPassageiros < 1 || qtdPassageiros > 4) {
-					System.out.println("Quantidade de passageiros inválida!");
-				}
-				else {
-					verificaPassageiro = 1;
+
+		while(placa.isEmpty()) {
+			System.out.println("Digite a placa do veiculo: ");
+			String digitado = in.nextLine().trim().toUpperCase().replace("-", "").replace(" ", "");
+
+			boolean existe = false;
+			for(Veiculo existente : veiculos) {
+				if(existente.getPlaca().equals(digitado)) {
+					existe = true;
 				}
 			}
+
+			if(!digitado.matches("[A-Z]{3}[0-9][A-Z0-9][0-9]{2}")) {
+				System.out.println("Placa invalida! Use o formato ABC1234 ou ABC1D23.");
+			} else if(existe) {
+				System.out.println("Ja existe um veiculo com essa placa!");
+			} else {
+				placa = digitado;
+			}
+		}
+
+		while(modelo.isEmpty()) {
+			System.out.println("Digite o modelo do veiculo (Civic, Astra, etc..): ");
+			modelo = in.nextLine().trim();
+		}
+
+		while(marca.isEmpty()) {
+			System.out.println("Digite a marca do veiculo (Honda, Chevrolet, etc..): ");
+			marca = in.nextLine().trim();
+		}
+
+		while(ano == 0) {
+			System.out.println("Digite o ano do veiculo: ");
+
+			try {
+				int digitado = Integer.parseInt(in.nextLine().trim());
+
+				if(digitado < 1950 || digitado > anoMaximo) {
+					System.out.println("Ano invalido! Digite um ano entre 1950 e " + anoMaximo + ".");
+				} else {
+					ano = digitado;
+				}
+			} catch(NumberFormatException e) {
+				System.out.println("Ano invalido! Digite apenas numeros.");
+			}
+		}
+
+		// limites de passageiros de cada tipo
+		int minimo = 1;
+		int maximo = 4;
+		if(tipo.equals("moto")) {
+			maximo = 1;
+		} else if(tipo.equals("van")) {
+			minimo = 6;
+			maximo = 19;
+		}
+
+		while(qtdPassageiros == 0) {
+			System.out.println("Digite a quantidade de passageiros que o veiculo aceita (sem contar o motorista): ");
+
+			try {
+				int digitado = Integer.parseInt(in.nextLine().trim());
+
+				if(digitado < minimo || digitado > maximo) {
+					System.out.println("Quantidade invalida! Para " + tipo + ", digite de " + minimo + " a " + maximo + ".");
+				} else {
+					qtdPassageiros = digitado;
+				}
+			} catch(NumberFormatException e) {
+				System.out.println("Quantidade invalida! Digite apenas numeros inteiros.");
+			}
+		}
+
+		Veiculo v;
+		if(tipo.equals("carro")) {
 			v = new Carro(placa, modelo, marca, ano, qtdPassageiros);
-		}
-		
-		else if(tipo.equalsIgnoreCase("moto")) {
-			
-			verificaPassageiro = 0;
-				
-			while(verificaPassageiro != 1) {
-					
-				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
-				qtdPassageiros = Integer.parseInt(in.nextLine());
-				
-				if(qtdPassageiros < 1 || qtdPassageiros > 1) {
-					System.out.println("Quantidade de passageiros inválida!");
-				}
-				else {
-					verificaPassageiro = 1;
-				}
-			}
+		} else if(tipo.equals("moto")) {
 			v = new Moto(placa, modelo, marca, ano, qtdPassageiros);
-		}
-		else if(tipo.equalsIgnoreCase("van")) {
-			
-			verificaPassageiro = 0;
-			
-			while(verificaPassageiro != 1) {
-					
-				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
-				qtdPassageiros = Integer.parseInt(in.nextLine());
-				
-				if(qtdPassageiros < 6 || qtdPassageiros > 19) {
-					System.out.println("Quantidade de passageiros inválida!");
-					System.out.println("Para ser considerado VAN, a quantidade deve ser no máximo 19 e no mínimo 6!");
-				}
-				else {
-					verificaPassageiro = 1;
-				}
-			}
+		} else {
 			v = new Van(placa, modelo, marca, ano, qtdPassageiros);
 		}
-		
-		if(v != null) {
-			veiculos.add(v);
-			System.out.println("Veículo Cadastrado!");
-		}
+
+		veiculos.add(v);
+		System.out.println("Veiculo Cadastrado!");
 	}
 	
 	public Corrida solicitarCorrida(Passageiro p, String origem, String destino, double distancia,
