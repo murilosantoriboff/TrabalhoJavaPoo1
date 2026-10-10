@@ -39,28 +39,36 @@ public class EmpresaTransporte {
 		Passageiro p = new Passageiro(nome, cpf, telefone);
 		
 		passageiros.add(p);
+		System.out.println("Passageiro Cadastrado!");
 	}
 
+	//REALIZAR A VERIFICAÇÃO DE VEICULO, VERIFICAR SE UM MOTORISTA JA POSSUI O VEICULO ESCOLHIDO NA HORA DE ASSOCIAR
 	public void cadastrarMotorista(Scanner in) {
 		
+		Veiculo v = null ;
 		String nome = null;
 		String cpf = null;
 		String telefone = null;
 		String cnh = null;
+		int opcao=0;
+		int verificaVeiculo = 0, verificaCpf = 0;
 		
 		System.out.println("Digite o nome do motorista: ");
 		nome = in.nextLine();
 		
-		System.out.println("Digite o CPF (apenas numeros) do motorista: ");
-		cpf = in.nextLine();
-		
-		for(int i=0;i<motoristas.size();i++) {
-			if(cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
-				System.out.println("Já existe um motorista com esse CPF!");
+		while(verificaCpf != 1) {
+			System.out.println("Digite o CPF (apenas numeros) do motorista: ");
+			cpf = in.nextLine();
+			
+			for(int i=0;i<motoristas.size();i++) {
+				if(cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
+					System.out.println("Já existe um motorista com esse CPF!");
+					verificaCpf = 0;
+				}
+				else {
+					verificaCpf = 1;
+				}
 			}
-			//if(m.getVeiculo() == motoristas.get(i).getVeiculo()) {
-				//System.out.println("Esse veiculo já pertence ao motorista " + motoristas.get(i).getNome() + "!");
-			//}
 		}
 		
 		System.out.println("Digite o telefone do motorista: ");
@@ -69,37 +77,131 @@ public class EmpresaTransporte {
 		System.out.println("Digite a cnh do motorista: ");
 		cnh = in.nextLine();
 		
-		Motorista m = new Motorista(nome, cpf, telefone, cnh, null);
+		while(verificaVeiculo != 1) {
+			
+			System.out.println("Escolha o seu veículo cadastrado pela placa:");
+			opcao = in.nextInt();
+			
+			for(int i=0; i<veiculos.size(); i++) {
+				System.out.println(i + " - " + veiculos.get(i).getPlaca());
+			}
+			
+			if(opcao < 0 || opcao > veiculos.size()) {
+				System.out.println("Opção inválida!");
+				verificaVeiculo=0;
+			}
+			else {
+				verificaVeiculo=1;
+			}
+			
+		}
+		
+		v = veiculos.get(opcao);
+		
+		Motorista m = new Motorista(nome, cpf, telefone, cnh, v);
 
 		motoristas.add(m);
+		System.out.println("Motorista cadastrado e veiculo associado!");
 	}
 
-	//metodo nao finalizado
 	public void cadastrarVeiculo(Scanner in) {
 
+		int verificaPlaca = 0, verificaPassageiro;
+		Veiculo v = null;
 		String tipo = null;
 		String modelo = null;
 		String marca = null;
 		String placa = null;
 		int ano = 0;
+		int qtdPassageiros = 0;
 		
-		for(int i=0;i<veiculos.size();i++) {
-			if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
-				System.out.println("Já existe um veiculo com essa placa!");
+		System.out.println("Digite o tipo do veículo (Carro, Van ou Moto): ");
+		tipo = in.nextLine();
+		
+		while(verificaPlaca != 1) {
+			System.out.println("Digite a placa do veículo: ");
+			placa = in.nextLine();
+			
+			for(int i=0;i<veiculos.size();i++) {
+				if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
+					System.out.println("Já existe um veiculo com essa placa!");
+				}
+				else {
+					verificaPlaca = 1;
+				}
 			}
 		}
 		
+		System.out.println("Digite o modelo do veiculo(Civic, Astra, etc..): ");
+		modelo = in.nextLine();
+		
+		System.out.println("Digite a marca do veículo(Honda, Chevrolet, etc..): ");
+		marca = in.nextLine();
+		
+		System.out.println("Digite o ano do veículo: ");
+		ano = in.nextInt();
+		
 		if(tipo.equalsIgnoreCase("carro")) {
-			Carro v = new Carro();
-		}
-		else if(tipo.equalsIgnoreCase("moto")) {
-			Moto v = new Moto();
-		}
-		else if(tipo.equalsIgnoreCase("van")) {
-			Van v = new Van();
+			
+			verificaPassageiro = 0;
+			
+			while(verificaPassageiro != 1) {
+				
+				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
+				qtdPassageiros = in.nextInt();
+				
+				if(qtdPassageiros < 1 || qtdPassageiros > 4) {
+					System.out.println("Quantidade de passageiros inválida!");
+				}
+				else {
+					verificaPassageiro = 1;
+				}
+			}
+			v = new Carro(placa, modelo, marca, ano, qtdPassageiros);
 		}
 		
-		veiculos.add(v);
+		else if(tipo.equalsIgnoreCase("moto")) {
+			
+			verificaPassageiro = 0;
+				
+			while(verificaPassageiro != 1) {
+					
+				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
+				qtdPassageiros = in.nextInt();
+				
+				if(qtdPassageiros < 1 || qtdPassageiros > 1) {
+					System.out.println("Quantidade de passageiros inválida!");
+				}
+				else {
+					verificaPassageiro = 1;
+				}
+			}
+			v = new Moto(placa, modelo, marca, ano, qtdPassageiros);
+		}
+		else if(tipo.equalsIgnoreCase("van")) {
+			
+			verificaPassageiro = 0;
+			
+			while(verificaPassageiro != 1) {
+					
+				System.out.println("Digite a quantidade de passageiros que o veículo aceita (sem contar o motorista): ");
+				qtdPassageiros = in.nextInt();
+				
+				if(qtdPassageiros < 6 || qtdPassageiros > 19) {
+					System.out.println("Quantidade de passageiros inválida!");
+					System.out.println("Para ser considerado VAN, a quantidade deve ser no máximo 19 e no mínimo 5!");
+				}
+				else {
+					verificaPassageiro = 1;
+				}
+			}
+			v = new Van(placa, modelo, marca, ano, qtdPassageiros);
+		}
+		
+		if(v != null) {
+			veiculos.add(v);
+			System.out.println("Veículo Cadastrado!");
+		}
 	}
 	
 	public Corrida solicitarCorrida(Passageiro p, String origem, String destino, double distancia,
@@ -183,6 +285,11 @@ public class EmpresaTransporte {
 		
 		System.out.println("---Motoristas Disponíveis---");
 		
+		if(motoristas.isEmpty()) {
+			System.out.println("Nenhum motorista cadastrado!");
+			return;
+		}
+		
 		for(int i=0;i<motoristas.size();i++) {
 			if(motoristas.get(i).getDisponibilidade()==true) {
 				System.out.println(motoristas.get(i).getNome());
@@ -191,11 +298,16 @@ public class EmpresaTransporte {
 	}
 	
 	public void listarPassageiros() {
+		
 		System.out.println("---Passageiros Cadastrados---");
+		
+		if(passageiros.isEmpty()) {
+			System.out.println("Nenhum passageiro cadastrado!");
+			return;
+		}
 		
 		for(int i=0; i<passageiros.size();i++) {
 			System.out.println(passageiros.get(i).getNome());
 		}
 	}
-	
 }
