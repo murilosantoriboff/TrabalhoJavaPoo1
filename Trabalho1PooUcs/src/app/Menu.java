@@ -126,10 +126,83 @@ public class Menu {
 
 			switch(opcao) {
 			case 1:
-				empresa.solicitarCorrida(null, null, null, 0, null, null);
-				break;
+			    Passageiro p = buscaPassageiro(sc);
+
+			    if (p == null) {
+			        System.out.println("Passageiro não encontrado!");
+			        break;
+			    }
+
+			    System.out.println("Digite a origem:");
+			    String origem = sc.nextLine();
+
+			    System.out.println("Digite o destino:");
+			    String destino = sc.nextLine();
+
+			    System.out.println("Digite a distância em km:");
+			    double distancia;
+
+			    //tenta ler a distância digitada pelo usuário e se protege caso ele digite algo que não seja um número
+			    try {
+			        distancia = Double.parseDouble(sc.nextLine());
+			    } catch (NumberFormatException e) {
+			        System.out.println("Distância inválida!");
+			        break;
+			    }
+
+			    System.out.println("Escolha a categoria da corrida:");
+			    System.out.println("1 - Econômica");
+			    System.out.println("2 - Conforto");
+			    System.out.println("3 - Premium");
+
+			    CategoriaCorrida cat;
+
+			    switch (sc.nextLine()) {
+			        case "1":
+			            cat = new CatEconomica();
+			            break;
+			        case "2":
+			            cat = new CatConforto();
+			            break;
+			        case "3":
+			            cat = new CatPremium();
+			            break;
+			        default:
+			            System.out.println("Categoria inválida!");
+			            break;
+			    }
+
+			    System.out.println("Escolha a forma de pagamento:");
+			    System.out.println("1 - Dinheiro");
+			    System.out.println("2 - Cartão");
+			    System.out.println("3 - Pix");
+
+			    FormaPagamento fp;
+
+			    switch (sc.nextLine()) {
+			        case "1":
+			            fp = new PagDinheiro();
+			            corrida.setStatus(StatusCorrida.SOLICITADA);
+			            System.out.println("Corrida Solicitada com sucesso!");
+			            break;
+			        case "2":
+			            fp = new PagCartao();
+			            corrida.setStatus(StatusCorrida.SOLICITADA);
+			            System.out.println("Corrida Solicitada com sucesso!");
+			            break;
+			        case "3":
+			            fp = new PagPix();
+			            corrida.setStatus(StatusCorrida.SOLICITADA);
+			            System.out.println("Corrida Solicitada com sucesso!");
+			            break;
+			        default:
+			            System.out.println("Forma de pagamento inválida!");
+			            break;
+			    }
+
+			    break;
 			case 2:
-				corrida.aceitar(null);
+				corrida.aceitar(buscaMotorista(sc));
 				break;
 			case 3:
 				corrida.iniciar();
@@ -202,29 +275,31 @@ public class Menu {
 		} while(opcao != 0);
 	}
 	
-	private void buscaPassageiro(Scanner in) {
+	private Passageiro buscaPassageiro(Scanner in) {
 		Passageiro p = empresa.buscarPassageiroPorCpf(in);
 		if(p == null) {
 			System.out.println("Passageiro nao encontrado!");
-			return;
+			return null;
 		}
-		System.out.println(p.toString());
+		return p;
+		
 	}
 	
-	private void buscaMotorista(Scanner in) {
+	private Motorista buscaMotorista(Scanner in) {
 		Motorista m = empresa.buscarMotoristaPorCpf(in);
 		if(m == null) {
 			System.out.println("Motorista nao encontrado!");
-			return;
+			return null;
 		}
-		System.out.println(m.toString());
+		return m;
 	}
 	
-	private void buscaVeiculo(Scanner in) {
+	private Veiculo buscaVeiculo(Scanner in) {
 		Veiculo v = empresa.buscarVeiculoPorPlaca(in);
 		//buscarVeiculoPorPlaca ja imprime o veículo (ou a mensagem de nao encontrado) e retorna null
 		if(v != null) {
 			System.out.println(v.toString());
 		}
+		return v;
 	}
 }

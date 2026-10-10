@@ -157,6 +157,11 @@ public class Corrida {
 	public StatusCorrida getStatus() {
 		return status;
 	}
+	
+
+	public void setStatus(StatusCorrida status) {
+		this.status = status;
+	}
 
 	public double getValorBase() {
 		return valorBase;
@@ -169,5 +174,6 @@ public class Corrida {
 	public Avaliacao getAvaliacao() {
 		return avaliacao;
 	}
+	
 
 }
