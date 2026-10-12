@@ -24,6 +24,6 @@ public class Carro extends Veiculo {
 
 	@Override
 	public double calcularTarifa(double distancia) {
-		return 0;
+	    return valorVeiculo + valorKm * distancia;
 	}
 }

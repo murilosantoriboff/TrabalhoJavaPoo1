@@ -34,63 +34,68 @@ public class Corrida {
 	}
 
 	public void aceitar(Motorista m) {
-		if(this.status != StatusCorrida.SOLICITADA) {
-			System.out.println("Só é possivel aceitar uma corrida solicitada!");
-		}
-		if(m.getDisponibilidade() == false) {
-			System.out.println("O motorista " + m.getNome() + " não está disponivel!");
-		}
-		if(categoria.aceitaVeiculo(m.getVeiculo()) == false) {
-			System.out.println("O veiculo do motorista não atende a categoria " + categoria.getNome() + "!");
-		}
+	    if(this.status != StatusCorrida.SOLICITADA) {
+	        System.out.println("So e possivel aceitar uma corrida solicitada!");
+	        return;
+	    }
+	    if(m.getDisponibilidade() == false) {
+	        System.out.println("O motorista " + m.getNome() + " nao esta disponivel!");
+	        return;
+	    }
+	    if(categoria.aceitaVeiculo(m.getVeiculo()) == false) {
+	        System.out.println("O veiculo do motorista não atende a categoria " + categoria.getNome() + "!");
+	        return;
+	    }
 
-		m.ocupar();
-		this.motorista = m;
-		this.status = StatusCorrida.ACEITA;
+	    m.ocupar();
+	    this.motorista = m;
+	    this.status = StatusCorrida.ACEITA;
 	}
 
 	public void iniciar() {
-		if(this.status != StatusCorrida.ACEITA) {
-			System.out.println("Não é possivel iniciar uma corrida ainda não aceita ou em andamento!");
-		}
-
-		this.status = StatusCorrida.EM_ANDAMENTO;
+	    if(this.status != StatusCorrida.ACEITA) {
+	        System.out.println("Nao e possivel iniciar uma corrida ainda nao aceita ou em andamento!");
+	        return;
+	    }
+	    this.status = StatusCorrida.EM_ANDAMENTO;
 	}
 
 	public void finalizar() {
-		if(this.status != StatusCorrida.EM_ANDAMENTO) {
-			System.out.println("Não é possivel finalizar uma corrida não iniciada!");
-		}
-
-		calcularValor();
-		motorista.desocupar();
-		this.status = StatusCorrida.FINALIZADA;
+	    if(this.status != StatusCorrida.EM_ANDAMENTO) {
+	        System.out.println("Nao e possivel finalizar uma corrida nao iniciada!");
+	        return;
+	    }
+	    calcularValor();
+	    motorista.desocupar();
+	    this.status = StatusCorrida.FINALIZADA;
 	}
 
 	public void cancelar() {
-		if(this.status != StatusCorrida.SOLICITADA && this.status != StatusCorrida.ACEITA) {
-			System.out.println("Só é possivel cancelar uma corrida solicitada ou aceita!");
-		}
-
-		if(motorista != null) {
-			motorista.desocupar();
-		}
-		this.status = StatusCorrida.CANCELADA;
+	    if(this.status != StatusCorrida.SOLICITADA && this.status != StatusCorrida.ACEITA) {
+	        System.out.println("Sa e possivel cancelar uma corrida solicitada ou aceita!");
+	        return;
+	    }
+	    if(motorista != null) {
+	        motorista.desocupar();
+	    }
+	    this.status = StatusCorrida.CANCELADA;
 	}
 
 	public void avaliar(int nota, String comentario) {
-		if(this.status != StatusCorrida.FINALIZADA) {
-			System.out.println("Só é possivel avaliar uma corrida finalizada!");
-		}
-		if(this.avaliacao != null) {
-			System.out.println("Essa corrida já foi avaliada!");
-		}
-		if(nota < 1 || nota > 5) {
-			System.out.println("A nota deve ser de 1 a 5!");
-		}
-
-		this.avaliacao = new Avaliacao(nota, comentario);
-		motorista.adicionarAvaliacao(nota, comentario);
+	    if(this.status != StatusCorrida.FINALIZADA) {
+	        System.out.println("Sa e possivel avaliar uma corrida finalizada!");
+	        return;
+	    }
+	    if(this.avaliacao != null) {
+	        System.out.println("Essa corrida já foi avaliada!");
+	        return;
+	    }
+	    if(nota < 1 || nota > 5) {
+	        System.out.println("A nota deve ser de 1 a 5!");
+	        return;
+	    }
+	    this.avaliacao = new Avaliacao(nota, comentario);
+	    motorista.adicionarAvaliacao(nota, comentario);
 	}
 
 	private void calcularValor() {
@@ -113,7 +118,7 @@ public class Corrida {
 			valor = String.format("R$ %.2f", valorFinal);
 		}
 
-		return "Corrida: " + id + " | Situação: " + status
+		return "Corrida: " + id + " | Situacao: " + status
 				+ "\n   Passageiro: " + passageiro.getNome() + " | Motorista: " + nomeMotorista
 				+ "\n   Veiculo: " + veiculo
 				+ "\n   Origem: " + origem + " | Destino: " + destino + " | Distancia: " + distancia + " km"

@@ -1,13 +1,12 @@
 package app;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
 	private Scanner sc = new Scanner(System.in);
 	private EmpresaTransporte empresa = new EmpresaTransporte();
-	private Corrida corrida = new Corrida();
+	
 	
 	public Menu() {
 		
@@ -128,21 +127,48 @@ public class Menu {
 			case 1: 
 				solicitarCorrida();
 			    break;
-			case 2:
-				corrida.aceitar(buscaMotorista(sc));
-				break;
-			case 3:
-				corrida.iniciar();
-				break;
-			case 4:
-				corrida.finalizar();
-				break;
-			case 5:
-				corrida.cancelar();
-				break;
-			case 6:
-				corrida.avaliar(0, null);
-				break;
+			case 2: {
+			    Corrida c = buscaCorrida();
+			    if(c == null) break;
+			    Motorista m = buscaMotorista(sc);
+			    if(m == null) break;
+			    c.aceitar(m);
+			    break;
+			}
+			case 3: {
+			    Corrida c = buscaCorrida();
+			    if(c != null) c.iniciar();
+			    break;
+			}
+			case 4: {
+			    Corrida c = buscaCorrida();
+			    if(c != null) {
+			        c.finalizar();
+			        System.out.println(c);
+			    }
+			    break;
+			}
+			case 5: {
+			    Corrida c = buscaCorrida();
+			    if(c != null) c.cancelar();
+			    break;
+			}
+			case 6: {
+			    Corrida c = buscaCorrida();
+			    if(c == null) break;
+			    System.out.println("Nota (1 a 5):");
+			    int nota;
+			    try {
+			        nota = Integer.parseInt(sc.nextLine().trim());
+			    } catch(NumberFormatException e) {
+			        System.out.println("Nota invalida! Digite apenas numeros.");
+			        break;
+			    }
+			    System.out.println("Comentario:");
+			    String comentario = sc.nextLine();
+			    c.avaliar(nota, comentario);
+			    break;
+			}
 			case 0:
 				break;
 			default:
@@ -188,12 +214,24 @@ public class Menu {
 				break;
 			case 4:
 				buscaVeiculo(sc);
-			case 5:
-				buscaPassageiro(sc);
 				break;
-			case 6:
-				buscaMotorista(sc);
-				break;
+			case 5: {
+			    Passageiro p = buscaPassageiro(sc);
+			    if(p != null) {
+			        System.out.println(p);
+			        p.listarCorridas();
+			    }
+			    break;
+			}
+			case 6: {
+			    Motorista m = buscaMotorista(sc);
+			    if(m != null) {
+			        System.out.println(m);
+			        System.out.println("Media das avaliacoes: " + m.calcularMediaAvaliacoes());
+			        m.listarAvaliacoes();
+			    }
+			    break;
+			}
 			case 0:
 				break;
 			default:
@@ -223,9 +261,11 @@ public class Menu {
 	
 	private Veiculo buscaVeiculo(Scanner in) {
 		Veiculo v = empresa.buscarVeiculoPorPlaca(in);
-		//buscarVeiculoPorPlaca ja imprime o veículo (ou a mensagem de nao encontrado) e retorna null
+		//buscarVeiculoPorPlaca ja imprime o veiculo (ou a mensagem de nao encontrado) e retorna null
 		if(v != null) {
 			System.out.println(v.toString());
+		} else if (v==null) {
+			System.out.println("Veiculo nao encontrado!");
 		}
 		return v;
 	}
@@ -233,22 +273,35 @@ public class Menu {
 	private void solicitarCorrida() {
 	    Passageiro p = buscaPassageiro(sc);
 	    if (p == null) {
-	        return; // buscaPassageiro já avisa que não encontrou
+	        return; // buscaPassageiro ja avisa que não encontrou
 	    }
 
-	    System.out.println("Digite a origem:");
-	    String origem = sc.nextLine();
+	    String origem = "";
+	    while(origem.isEmpty()) {
+	        System.out.println("Digite a origem:");
+	        origem = sc.nextLine().trim();
+	        if(origem.isEmpty()) System.out.println("Origem nao pode ficar vazia!");
+	    }
 
-	    System.out.println("Digite o destino:");
-	    String destino = sc.nextLine();
+	    String destino = "";
+	    while(destino.isEmpty()) {
+	        System.out.println("Digite o destino:");
+	        destino = sc.nextLine().trim();
+	        if(destino.isEmpty()) System.out.println("Destino nao pode ficar vazio!");
+	    }
 
-	    System.out.println("Digite a distância em km:");
-	    double distancia;
-	    try {
-	        distancia = Double.parseDouble(sc.nextLine());
-	    } catch (NumberFormatException e) {
-	        System.out.println("Distância inválida!");
-	        return;
+	    double distancia = 0;
+	    while(distancia <= 0) {
+	        System.out.println("Digite a distancia em km (use ponto: 12.5):");
+	        try {
+	            distancia = Double.parseDouble(sc.nextLine().trim().replace(",", "."));
+	            if(distancia <= 0 || Double.isNaN(distancia) || Double.isInfinite(distancia)) {
+	                System.out.println("A distancia deve ser maior que zero!");
+	                distancia = 0;
+	            }
+	        } catch(NumberFormatException e) {
+	            System.out.println("Distancia invalida! Digite apenas numeros.");
+	        }
 	    }
 
 	    System.out.println("Escolha a categoria da corrida:");
@@ -281,15 +334,18 @@ public class Menu {
 	            return;
 	    }
 
-	    corrida = new Corrida();
-	    corrida.setPassageiro(p);
-	    corrida.setOrigem(origem);
-	    corrida.setDestino(destino);
-	    corrida.setDistancia(distancia);
-	    corrida.setCategoria(cat);
-	    corrida.setFormaPagamento(fp);
-	    corrida.setStatus(StatusCorrida.SOLICITADA);
-
-	    System.out.println("Corrida solicitada com sucesso!");
+	    Corrida nova = empresa.solicitarCorrida(p, origem, destino, distancia, cat, fp);
+	    System.out.println("Corrida solicitada com sucesso! ID da corrida: " + nova.getId());
+	}
+	
+	private Corrida buscaCorrida() {
+	    System.out.println("Digite o ID da corrida:");
+	    try {
+	        int id = Integer.parseInt(sc.nextLine().trim());
+	        return empresa.buscarCorridaPorId(id); // ja imprime "Corrida nao encontrada"
+	    } catch(NumberFormatException e) {
+	        System.out.println("ID invalido! Digite apenas numeros.");
+	        return null;
+	    }
 	}
 }

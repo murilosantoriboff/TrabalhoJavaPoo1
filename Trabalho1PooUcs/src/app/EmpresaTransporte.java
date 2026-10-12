@@ -328,11 +328,10 @@ public class EmpresaTransporte {
 		placa = in.nextLine();
 		
 		for(int i=0;i<veiculos.size();i++) {
-			if(placa.equalsIgnoreCase(veiculos.get(i).getPlaca())) {
-				System.out.println(veiculos.get(i));
-			}
+		    if(placa.trim().equalsIgnoreCase(veiculos.get(i).getPlaca())) {
+		        return veiculos.get(i);
+		    }
 		}
-		
 		return null;
 	}
 	
@@ -352,7 +351,10 @@ public class EmpresaTransporte {
 	public void listarCorridasSolicitadas() {
 		
 		System.out.println("---Corridas Solicitadas(ID)---");
-		
+		if(corridas.isEmpty()) {
+	        System.out.println("Nenhuma corrida registrada!");
+	        return;
+	    }
 		for(int i=0; i<corridas.size();i++) {
 			System.out.println("Corrida "+ i+1 + ": " + corridas.get(i).getId());
 		}

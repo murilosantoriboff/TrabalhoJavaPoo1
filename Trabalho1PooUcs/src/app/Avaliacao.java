@@ -24,5 +24,9 @@ public class Avaliacao {
 		this.comentario = comentario;
 	}
 	
+	@Override
+	public String toString() {
+	    return "Nota: " + nota + " | Comentario: " + comentario;
+	}
 	
 }
