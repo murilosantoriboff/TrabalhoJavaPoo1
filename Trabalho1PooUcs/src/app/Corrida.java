@@ -130,6 +130,30 @@ public class Corrida {
 		return passageiro;
 	}
 
+	public void setPassageiro(Passageiro passageiro) {
+		this.passageiro = passageiro;
+	}
+
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public void setDistancia(double distancia) {
+		this.distancia = distancia;
+	}
+
+	public void setCategoria(CategoriaCorrida categoria) {
+		this.categoria = categoria;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
 	public Motorista getMotorista() {
 		return motorista;
 	}
