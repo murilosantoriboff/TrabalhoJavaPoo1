@@ -144,6 +144,7 @@ public class Menu {
 			    Corrida c = buscaCorrida();
 			    if(c != null) {
 			        c.finalizar();
+			        System.out.println("Valor da Corrida: R$ "+c.getValorBase());
 			        System.out.println(c);
 			    }
 			    break;
