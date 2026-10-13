@@ -356,7 +356,7 @@ public class EmpresaTransporte {
 	        return;
 	    }
 		for(int i=0; i<corridas.size();i++) {
-			System.out.println("Corrida "+ i+1 + ": " + corridas.get(i).getId());
+			System.out.println(corridas.get(i));
 		}
 				
 	}
