@@ -242,11 +242,7 @@ public class Menu {
 	}
 	
 	private Passageiro buscaPassageiro(Scanner in) {
-		Passageiro p = empresa.buscarPassageiroPorCpf(in);
-		if(p == null) {
-			System.out.println("Passageiro nao encontrado!");
-			return null;
-		}
+		Passageiro p = empresa.buscarPassageiroPorNome(in);
 		return p;
 		
 	}
