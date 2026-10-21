@@ -159,12 +159,12 @@ public class EmpresaTransporte {
 		while (veiculoEscolhido == null) {
 			System.out.println("Escolha o seu veiculo pela placa:");
 			for (int i = 0; i < livres.size(); i++) {
-				System.out.println(i + " - " + livres.get(i).getPlaca());
+				System.out.println(i+1 + " - " + livres.get(i).getPlaca());
 			}
 
 			try {
 				int opcao = Integer.parseInt(in.nextLine().trim());
-				veiculoEscolhido = livres.get(opcao);
+				veiculoEscolhido = livres.get(opcao-1);
 			} catch (NumberFormatException | IndexOutOfBoundsException e) {
 				System.out.println("Opção invalida! Digite o número de um dos veiculos listados.");
 			}
@@ -307,9 +307,9 @@ public class EmpresaTransporte {
 
 		System.out.println("---Passageiros Encontrados---");
 		for (int i = 0; i < passageiros.size(); i++) {
-			if (passageiros.get(i).getNome().toUpperCase().contains(digitado.toUpperCase())) {
+			if (passageiros.get(i).getNome().toLowerCase().contains(digitado.toLowerCase())) {
 				encontrados.add(passageiros.get(i));
-				System.out.println(encontrados.size() + " - " + passageiros.get(i).getNome());
+				System.out.println(encontrados.size() + " - " + passageiros.get(i).getNome().toUpperCase());
 			}
 		}
 
@@ -336,20 +336,49 @@ public class EmpresaTransporte {
 		}
 	}
 
-	public Motorista buscarMotoristaPorCpf(Scanner in) {
+	public Motorista buscarMotoristaPorNome(Scanner in) {
 
-		String cpf = null;
+		ArrayList<Motorista> encontrados = new ArrayList<>();
+		String digitado = "";
+		int opcao = 0;
 
-		System.out.println("Digite o CPF (apenas numeros) do motorista a ser consultado: ");
-		cpf = in.nextLine();
+		if (motoristas.isEmpty()) {
+			System.out.println("Nenhum motorista cadastrado!");
+			return null;
+		}
 
-		for (int i = 0; i < motoristas.size(); i++) {
-			if (cpf.equalsIgnoreCase(motoristas.get(i).getCPF())) {
-				return motoristas.get(i);
+		System.out.println("Digite o nome do motorista a ser consultado: ");
+		digitado = in.nextLine();
+
+		System.out.println("---Motoristas Encontrados---");
+		for (int i = 0; i < passageiros.size(); i++) {
+			if (passageiros.get(i).getNome().toLowerCase().contains(digitado.toLowerCase())) {
+				encontrados.add(motoristas.get(i));
+				System.out.println(encontrados.size() + " - " + motoristas.get(i).getNome().toUpperCase());
 			}
 		}
 
-		return null;
+		if (encontrados.isEmpty()) {
+			System.out.println("Nenhum motorista encontrado");
+			return null;
+		}
+
+		while (true) {
+			System.out.println("Escolha o motorista a ser consultado: ");
+
+			try {
+				opcao = Integer.parseInt(in.nextLine().trim());
+
+				if (opcao >= 1 && opcao <= encontrados.size()) {
+					return encontrados.get(opcao - 1);
+				}
+
+				System.out.println("Digite um número que esta na lista!");
+
+			} catch (NumberFormatException e) {
+				System.out.println("Digite apenas um número inteiro!");
+			}
+		}
 	}
 
 	public Veiculo buscarVeiculoPorPlaca(Scanner in) {
@@ -404,7 +433,7 @@ public class EmpresaTransporte {
 
 		for (int i = 0; i < motoristas.size(); i++) {
 			if (motoristas.get(i).getDisponibilidade() == true) {
-				System.out.println(motoristas.get(i).getNome());
+				System.out.println(motoristas.get(i).getNome().toUpperCase());
 			}
 		}
 	}
@@ -419,7 +448,7 @@ public class EmpresaTransporte {
 		}
 
 		for (int i = 0; i < passageiros.size(); i++) {
-			System.out.println(passageiros.get(i).getNome());
+			System.out.println(passageiros.get(i).getNome().toUpperCase());
 		}
 	}
 }

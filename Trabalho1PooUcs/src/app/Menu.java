@@ -248,7 +248,7 @@ public class Menu {
 	}
 	
 	private Motorista buscaMotorista(Scanner in) {
-		Motorista m = empresa.buscarMotoristaPorCpf(in);
+		Motorista m = empresa.buscarMotoristaPorNome(in);
 		if(m == null) {
 			System.out.println("Motorista nao encontrado!");
 			return null;
