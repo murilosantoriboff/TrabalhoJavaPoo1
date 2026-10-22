@@ -6,8 +6,7 @@ public class Menu {
 
 	private Scanner sc = new Scanner(System.in);
 	private EmpresaTransporte empresa = new EmpresaTransporte();
-	
-	
+
 	public Menu() {
 		
 	}

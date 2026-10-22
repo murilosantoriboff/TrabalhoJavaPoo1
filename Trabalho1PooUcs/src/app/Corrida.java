@@ -72,7 +72,7 @@ public class Corrida {
 
 	public void cancelar() {
 	    if(this.status != StatusCorrida.SOLICITADA && this.status != StatusCorrida.ACEITA) {
-	        System.out.println("Sa e possivel cancelar uma corrida solicitada ou aceita!");
+	        System.out.println("Só e possivel cancelar uma corrida solicitada ou aceita!");
 	        return;
 	    }
 	    if(motorista != null) {
@@ -83,7 +83,7 @@ public class Corrida {
 
 	public void avaliar(int nota, String comentario) {
 	    if(this.status != StatusCorrida.FINALIZADA) {
-	        System.out.println("Sa e possivel avaliar uma corrida finalizada!");
+	        System.out.println("Só e possivel avaliar uma corrida finalizada!");
 	        return;
 	    }
 	    if(this.avaliacao != null) {

@@ -1,6 +1,7 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Motorista extends Pessoa{
 	private String cnh;
@@ -9,7 +10,7 @@ public class Motorista extends Pessoa{
 	
 
 	
-	private ArrayList<Avaliacao> avaliacoes = new ArrayList<>();
+	private List<Avaliacao> avaliacoes;
 
 	
 	public Motorista(String nome, String cpf, String telefone, String cnh, Veiculo veiculo) {
@@ -17,6 +18,7 @@ public class Motorista extends Pessoa{
 		this.cnh = cnh;
 		this.veiculo = veiculo;
 		this.disponibilidade = true;
+		this.avaliacoes = new ArrayList<>();
 	}
 
 	public String getCnh() {

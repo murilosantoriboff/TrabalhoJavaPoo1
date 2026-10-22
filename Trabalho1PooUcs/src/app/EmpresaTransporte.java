@@ -2,17 +2,21 @@ package app;
 
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmpresaTransporte {
 
-	private ArrayList<Passageiro> passageiros = new ArrayList<>();
-	private ArrayList<Motorista> motoristas = new ArrayList<>();
-	private ArrayList<Veiculo> veiculos = new ArrayList<>();
-	private ArrayList<Corrida> corridas = new ArrayList<>();
+	private List<Passageiro> passageiros;
+	private List<Motorista> motoristas;
+	private List<Veiculo> veiculos;
+	private List<Corrida> corridas;
 
 	public EmpresaTransporte() {
-
+		this.passageiros = new ArrayList<>();
+		this.motoristas = new ArrayList<>();
+		this.veiculos = new ArrayList<>();
+		this.corridas = new ArrayList<>();
 	}
 
 	public void cadastrarPassageiro(Scanner in) {
@@ -79,7 +83,7 @@ public class EmpresaTransporte {
 		}
 
 		// guarda so os veiculos que ainda nao tem motorista
-		ArrayList<Veiculo> livres = new ArrayList<>();
+		List<Veiculo> livres = new ArrayList<>();
 		for (Veiculo veiculo : veiculos) {
 			boolean emUso = false;
 			for (Motorista motorista : motoristas) {
@@ -293,7 +297,7 @@ public class EmpresaTransporte {
 	}
 
 	public Passageiro buscarPassageiroPorNome(Scanner in) {
-		ArrayList<Passageiro> encontrados = new ArrayList<>();
+		List<Passageiro> encontrados = new ArrayList<>();
 		String digitado = "";
 		int opcao = 0;
 
@@ -338,7 +342,7 @@ public class EmpresaTransporte {
 
 	public Motorista buscarMotoristaPorNome(Scanner in) {
 
-		ArrayList<Motorista> encontrados = new ArrayList<>();
+		List<Motorista> encontrados = new ArrayList<>();
 		String digitado = "";
 		int opcao = 0;
 
@@ -351,8 +355,8 @@ public class EmpresaTransporte {
 		digitado = in.nextLine();
 
 		System.out.println("---Motoristas Encontrados---");
-		for (int i = 0; i < passageiros.size(); i++) {
-			if (passageiros.get(i).getNome().toLowerCase().contains(digitado.toLowerCase())) {
+		for (int i = 0; i < motoristas.size(); i++) {
+			if (motoristas.get(i).getNome().toLowerCase().contains(digitado.toLowerCase())) {
 				encontrados.add(motoristas.get(i));
 				System.out.println(encontrados.size() + " - " + motoristas.get(i).getNome().toUpperCase());
 			}

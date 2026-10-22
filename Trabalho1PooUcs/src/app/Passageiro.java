@@ -1,13 +1,15 @@
 package app;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Passageiro extends Pessoa{
 
-	private ArrayList<Corrida> corridas = new ArrayList<>();
+	private List<Corrida> corridas;
 
 	public Passageiro(String nome, String cpf, String telefone) {
 		super(nome, cpf, telefone);
+		this.corridas = new ArrayList<>();
 	}
 
 	public void adicionarCorrida(Corrida corrida) {
