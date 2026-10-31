@@ -13,4 +13,9 @@ public class PagCartao implements FormaPagamento{
 	public String getNome() {
 		return "Cartão";
 	}
+
+	@Override
+	public String toString() {
+		return getNome();
+	}
 }

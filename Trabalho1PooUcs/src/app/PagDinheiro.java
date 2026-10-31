@@ -11,4 +11,9 @@ public class PagDinheiro implements FormaPagamento{
 	public String getNome() {
 		return "Dinheiro";
 	}
+
+	@Override
+	public String toString() {
+		return getNome();
+	}
 }

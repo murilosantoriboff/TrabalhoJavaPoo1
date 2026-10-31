@@ -7,12 +7,12 @@ public class Motorista extends Pessoa{
 	private String cnh;
 	private Veiculo veiculo;
 	private boolean disponibilidade;
-	
 
-	
+
+
 	private List<Avaliacao> avaliacoes;
 
-	
+
 	public Motorista(String nome, String cpf, String telefone, String cnh, Veiculo veiculo) {
 		super(nome, cpf, telefone);
 		this.cnh = cnh;
@@ -46,30 +46,24 @@ public class Motorista extends Pessoa{
 	}
 
 
-	public void setDisponibilidade(boolean disponibilidade) {
+	private void setDisponibilidade(boolean disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
-	
-	public void disponibilidade() {
-		if(this.getDisponibilidade()== true) {
-			System.out.println("O motorista " + getNome() + " esta disponivel!");
-		}
-	}
-	
+
 	public void ocupar() {
 		this.setDisponibilidade(false);
 	}
-	
+
 	public void desocupar() {
 		this.setDisponibilidade(true);
 	}
-	
+
 	public void adicionarAvaliacao(int nota, String descricao) {
-		
+
 		Avaliacao avaliacao = new Avaliacao(nota, descricao);
-		
+
 		avaliacoes.add(avaliacao);
-		
+
 	}
 
 	public double calcularMediaAvaliacoes() {
@@ -87,13 +81,9 @@ public class Motorista extends Pessoa{
 		return soma / avaliacoes.size();
 	}
 
-	public void listarAvaliacoes() {
-
-		System.out.println("---Avaliações (" + avaliacoes.size() + ")---");
-
-		for(int i = 0; i < avaliacoes.size(); i++) {
-			System.out.println(avaliacoes.get(i));
-		}
+	
+	public List<Avaliacao> getAvaliacoes() {
+		return new ArrayList<>(avaliacoes);
 	}
 
 	@Override

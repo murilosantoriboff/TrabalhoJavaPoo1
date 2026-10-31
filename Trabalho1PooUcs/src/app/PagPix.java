@@ -13,4 +13,9 @@ public class PagPix implements FormaPagamento{
 	public String getNome() {
 		return "Pix";
 	}
+
+	@Override
+	public String toString() {
+		return getNome();
+	}
 }

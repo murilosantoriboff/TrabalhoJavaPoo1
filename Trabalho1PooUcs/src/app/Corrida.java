@@ -16,10 +16,6 @@ public class Corrida {
 	private double valorFinal;
 	private Avaliacao avaliacao;
 
-	public Corrida() {
-		
-	}
-	
 	public Corrida(Passageiro passageiro, String origem, String destino, double distancia,
 			CategoriaCorrida categoria, FormaPagamento formaPagamento) {
 		contador++;
@@ -33,18 +29,18 @@ public class Corrida {
 		this.status = StatusCorrida.SOLICITADA;
 	}
 
-	public void aceitar(Motorista m) {
+	public void aceitar(Motorista m) throws TransicaoInvalidaException, MotoristaIndisponivelException, VeiculoIncompativelException {
 	    if(this.status != StatusCorrida.SOLICITADA) {
-	        System.out.println("So e possivel aceitar uma corrida solicitada!");
-	        return;
+	        throw new TransicaoInvalidaException("So e possivel aceitar uma corrida solicitada!");
+	    }
+	    if(m == null) {
+	        throw new MotoristaIndisponivelException("Selecione um motorista!");
 	    }
 	    if(m.getDisponibilidade() == false) {
-	        System.out.println("O motorista " + m.getNome() + " nao esta disponivel!");
-	        return;
+	        throw new MotoristaIndisponivelException("O motorista " + m.getNome() + " nao esta disponivel!");
 	    }
 	    if(categoria.aceitaVeiculo(m.getVeiculo()) == false) {
-	        System.out.println("O veiculo do motorista não atende a categoria " + categoria.getNome() + "!");
-	        return;
+	        throw new VeiculoIncompativelException("O veiculo do motorista nao atende a categoria " + categoria.getNome() + "!");
 	    }
 
 	    m.ocupar();
@@ -52,28 +48,25 @@ public class Corrida {
 	    this.status = StatusCorrida.ACEITA;
 	}
 
-	public void iniciar() {
+	public void iniciar() throws TransicaoInvalidaException {
 	    if(this.status != StatusCorrida.ACEITA) {
-	        System.out.println("Nao e possivel iniciar uma corrida ainda nao aceita ou em andamento!");
-	        return;
+	        throw new TransicaoInvalidaException("Nao e possivel iniciar uma corrida ainda nao aceita ou em andamento!");
 	    }
 	    this.status = StatusCorrida.EM_ANDAMENTO;
 	}
 
-	public void finalizar() {
+	public void finalizar() throws TransicaoInvalidaException {
 	    if(this.status != StatusCorrida.EM_ANDAMENTO) {
-	        System.out.println("Nao e possivel finalizar uma corrida nao iniciada!");
-	        return;
+	        throw new TransicaoInvalidaException("Nao e possivel finalizar uma corrida nao iniciada!");
 	    }
 	    calcularValor();
 	    motorista.desocupar();
 	    this.status = StatusCorrida.FINALIZADA;
 	}
 
-	public void cancelar() {
+	public void cancelar() throws TransicaoInvalidaException {
 	    if(this.status != StatusCorrida.SOLICITADA && this.status != StatusCorrida.ACEITA) {
-	        System.out.println("Só e possivel cancelar uma corrida solicitada ou aceita!");
-	        return;
+	        throw new TransicaoInvalidaException("So e possivel cancelar uma corrida solicitada ou aceita!");
 	    }
 	    if(motorista != null) {
 	        motorista.desocupar();
@@ -81,18 +74,15 @@ public class Corrida {
 	    this.status = StatusCorrida.CANCELADA;
 	}
 
-	public void avaliar(int nota, String comentario) {
+	public void avaliar(int nota, String comentario) throws TransicaoInvalidaException, AvaliacaoInvalidaException {
 	    if(this.status != StatusCorrida.FINALIZADA) {
-	        System.out.println("Só e possivel avaliar uma corrida finalizada!");
-	        return;
+	        throw new TransicaoInvalidaException("So e possivel avaliar uma corrida finalizada!");
 	    }
 	    if(this.avaliacao != null) {
-	        System.out.println("Essa corrida já foi avaliada!");
-	        return;
+	        throw new AvaliacaoInvalidaException("Essa corrida ja foi avaliada!");
 	    }
 	    if(nota < 1 || nota > 5) {
-	        System.out.println("A nota deve ser de 1 a 5!");
-	        return;
+	        throw new AvaliacaoInvalidaException("A nota deve ser de 1 a 5!");
 	    }
 	    this.avaliacao = new Avaliacao(nota, comentario);
 	    motorista.adicionarAvaliacao(nota, comentario);
@@ -104,18 +94,21 @@ public class Corrida {
 		this.valorFinal = formaPagamento.aplicar(valorComCategoria);
 	}
 
+	public String getValorFormatado() {
+		if(status == StatusCorrida.FINALIZADA) {
+			return String.format("R$ %.2f", valorFinal);
+		}
+		return "a calcular";
+	}
+
 	@Override
 	public String toString() {
 		String nomeMotorista = "-";
 		String veiculo = "-";
-		String valor = "a calcular";
 
 		if(motorista != null) {
 			nomeMotorista = motorista.getNome();
 			veiculo = motorista.getVeiculo().toString();
-		}
-		if(status == StatusCorrida.FINALIZADA) {
-			valor = String.format("R$ %.2f", valorFinal);
 		}
 
 		return "Corrida: " + id + " | Situacao: " + status
@@ -123,40 +116,16 @@ public class Corrida {
 				+ "\n   Veiculo: " + veiculo
 				+ "\n   Origem: " + origem + " | Destino: " + destino + " | Distancia: " + distancia + " km"
 				+ "\n   Categoria: " + categoria.getNome() + " | Pagamento: " + formaPagamento.getNome()
-				+ " | Valor: " + valor;
+				+ " | Valor: " + getValorFormatado();
 	}
 
-	//Getters
+	
 	public int getId() {
 		return id;
 	}
 
 	public Passageiro getPassageiro() {
 		return passageiro;
-	}
-
-	public void setPassageiro(Passageiro passageiro) {
-		this.passageiro = passageiro;
-	}
-
-	public void setOrigem(String origem) {
-		this.origem = origem;
-	}
-
-	public void setDestino(String destino) {
-		this.destino = destino;
-	}
-
-	public void setDistancia(double distancia) {
-		this.distancia = distancia;
-	}
-
-	public void setCategoria(CategoriaCorrida categoria) {
-		this.categoria = categoria;
-	}
-
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
 	}
 
 	public Motorista getMotorista() {
@@ -186,11 +155,6 @@ public class Corrida {
 	public StatusCorrida getStatus() {
 		return status;
 	}
-	
-
-	public void setStatus(StatusCorrida status) {
-		this.status = status;
-	}
 
 	public double getValorBase() {
 		return valorBase;
@@ -203,6 +167,5 @@ public class Corrida {
 	public Avaliacao getAvaliacao() {
 		return avaliacao;
 	}
-	
 
 }

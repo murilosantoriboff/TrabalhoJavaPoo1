@@ -16,17 +16,8 @@ public class Passageiro extends Pessoa{
 		corridas.add(corrida);
 	}
 
-	public void listarCorridas() {
-
-		System.out.println("---Corridas do passageiro " + getNome() + "---");
-
-		if(corridas.isEmpty()) {
-			System.out.println("Nenhuma corrida.");
-		}
-
-		for(int i=0;i<corridas.size();i++) {
-			System.out.println(corridas.get(i));
-		}
+	public List<Corrida> getCorridas() {
+		return new ArrayList<>(corridas);
 	}
 
 	@Override

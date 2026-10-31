@@ -11,9 +11,9 @@ public abstract class Veiculo {
 	protected double valorVeiculo;
 
 	public Veiculo() {
-
+		
 	}
-
+	
 	public Veiculo(String placa, String modelo, String marca, int ano, int qtdPassageiros) {
 		this.placa = placa;
 		this.modelo = modelo;
@@ -23,6 +23,11 @@ public abstract class Veiculo {
 	}
 
 	public abstract double calcularTarifa(double distancia);
+
+	
+	public abstract int getMinimoLugares();
+
+	public abstract int getMaximoLugares();
 
 	public String getPlaca() {
 		return placa;
@@ -68,20 +73,13 @@ public abstract class Veiculo {
 		return valorKm;
 	}
 
-	public void setValorKm(double valorKm) {
-		this.valorKm = valorKm;
-	}
-
 	public double getValorVeiculo() {
 		return valorVeiculo;
 	}
 
-	public void setValorVeiculo(double valorVeiculo) {
-		this.valorVeiculo = valorVeiculo;
-	}
-
 	@Override
 	public String toString() {
-		return "Marca: " + this.marca + ", Modelo: " + this.modelo + ", Placa: " + this.placa;
+		return getClass().getSimpleName() + " - Marca: " + this.marca + ", Modelo: " + this.modelo
+				+ ", Ano: " + this.ano + ", Placa: " + this.placa + ", Lugares: " + this.qtdPassageiros;
 	}
 }
