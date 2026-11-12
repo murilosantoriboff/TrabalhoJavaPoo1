@@ -31,6 +31,7 @@ public class Menu {
 			System.out.println("3 - CONSULTAS");
 			System.out.println("4 - ABRIR TELA DE CORRIDAS");
 			System.out.println("5 - ABRIR TELA DE AVALIACAO");
+			System.out.println("6 - TESTE TELA INICIAL");
 			System.out.println("0 - Sair");
 			System.out.println("=========================================");
 			opcao = lerInteiro("Opcao: ", "Opcao");
@@ -52,6 +53,9 @@ public class Menu {
 			case 5:
 				System.out.println("Tela de avaliacao aberta. Feche a janela para voltar ao console.");
 				new TelaAvaliacao(empresa).setVisible(true);
+				break;
+			case 6:
+				new TelaInicial().setVisible(true);
 				break;
 			case 0:
 				System.out.println("Sistema encerrado.");
