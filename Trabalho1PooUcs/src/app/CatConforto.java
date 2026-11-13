@@ -2,6 +2,7 @@ package app;
 
 public class CatConforto extends CategoriaCorrida {
 
+	private static final long serialVersionUID = 1L;
     private static final double ACRESCIMO = 0.20;
     private static final int LUGARES_MINIMOS = 4;
 

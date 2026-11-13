@@ -1,7 +1,10 @@
 package app;
 
-public class PagCartao implements FormaPagamento{
+import java.io.Serializable;
 
+public class PagCartao implements FormaPagamento, Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private static final double ACRESCIMO = 0.03;
 
 	@Override

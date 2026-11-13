@@ -1,7 +1,10 @@
 package app;
 
-public class Avaliacao {
+import java.io.Serializable;
 
+public class Avaliacao implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int nota;
 	private String comentario;
 

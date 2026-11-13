@@ -2,6 +2,8 @@ package app;
 
 public class Carro extends Veiculo {
 
+	private static final long serialVersionUID = 1L;
+	
 	public Carro(){
 	
 	}

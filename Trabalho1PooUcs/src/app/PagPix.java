@@ -1,7 +1,10 @@
 package app;
 
-public class PagPix implements FormaPagamento{
+import java.io.Serializable;
 
+public class PagPix implements FormaPagamento, Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private static final double DESCONTO = 0.05;
 
 	@Override

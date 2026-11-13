@@ -2,6 +2,7 @@ package app;
 
 public class CatEconomica extends CategoriaCorrida {
 
+	private static final long serialVersionUID = 1L;
     public CatEconomica() {
         super("Econômica");
     }

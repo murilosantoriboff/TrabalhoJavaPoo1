@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Motorista extends Pessoa{
+	
+	private static final long serialVersionUID = 1L;
 	private String cnh;
 	private Veiculo veiculo;
 	private boolean disponibilidade;

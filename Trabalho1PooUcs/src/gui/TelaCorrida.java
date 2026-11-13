@@ -1,4 +1,4 @@
-package app;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,6 +23,23 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
+import app.CatConforto;
+import app.CatEconomica;
+import app.CatPremium;
+import app.CategoriaCorrida;
+import app.Corrida;
+import app.CorridaTableModel;
+import app.EmpresaTransporte;
+import app.FormaPagamento;
+import app.Motorista;
+import app.PagCartao;
+import app.PagDinheiro;
+import app.PagPix;
+import app.Passageiro;
+import app.StatusCorrida;
+import app.TransporteException;
+import app.Validacao;
 
 public class TelaCorrida extends JDialog {
 

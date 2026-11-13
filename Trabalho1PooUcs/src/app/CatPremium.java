@@ -3,6 +3,7 @@ package app;
 
 public class CatPremium extends CategoriaCorrida {
 
+	private static final long serialVersionUID = 1L;
     private static final double ACRESCIMO = 0.50;
     private static final int LUGARES_MINIMOS = 4;
     private static final int ANO_MINIMO = 2022;

@@ -1,7 +1,11 @@
 package app;
 
-public class Corrida {
+import java.io.Serializable;
 
+public class Corrida implements Serializable{
+
+	
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private static int contador;
 	private Passageiro passageiro;

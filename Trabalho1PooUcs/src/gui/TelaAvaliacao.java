@@ -1,4 +1,4 @@
-package app;
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,6 +19,13 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
+import app.Corrida;
+import app.CorridaTableModel;
+import app.EmpresaTransporte;
+import app.Motorista;
+import app.StatusCorrida;
+import app.TransporteException;
 
 public class TelaAvaliacao extends JDialog {
 

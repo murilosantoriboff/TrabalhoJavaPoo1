@@ -1,7 +1,10 @@
 package app;
 
-public class PagDinheiro implements FormaPagamento{
+import java.io.Serializable;
 
+public class PagDinheiro implements FormaPagamento, Serializable{
+
+	private static final long serialVersionUID = 1L;
 	@Override
 	public double aplicar(double valor) {
 		return valor;

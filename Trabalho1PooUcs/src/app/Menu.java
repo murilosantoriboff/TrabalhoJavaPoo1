@@ -3,6 +3,10 @@ package app;
 import java.util.List;
 import java.util.Scanner;
 
+import gui.TelaAvaliacao;
+import gui.TelaCorrida;
+import gui.TelaInicial;
+
 public class Menu {
 
 	private Scanner sc = new Scanner(System.in);

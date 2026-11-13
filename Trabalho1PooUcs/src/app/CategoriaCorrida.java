@@ -1,9 +1,11 @@
 package app;
 
+import java.io.Serializable;
 
-public abstract class CategoriaCorrida {
+public abstract class CategoriaCorrida implements Serializable{
 
-    private String nome;
+    private static final long serialVersionUID = 1L;
+	private String nome;
 
     protected CategoriaCorrida(String nome) {
         this.nome = nome;

@@ -1,11 +1,14 @@
 package app;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class EmpresaTransporte {
+public class EmpresaTransporte implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	private List<Passageiro> passageiros;
 	private List<Motorista> motoristas;
 	private List<Veiculo> veiculos;
