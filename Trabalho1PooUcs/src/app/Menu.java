@@ -6,10 +6,16 @@ import java.util.Scanner;
 public class Menu {
 
 	private Scanner sc = new Scanner(System.in);
-	private EmpresaTransporte empresa = new EmpresaTransporte();
+	private EmpresaTransporte empresa;
 
 	public Menu() {
-
+		try {
+			empresa = EmpresaTransporte.carregar();
+		} catch (PersistenciaException e) {
+			System.out.println("Erro: " + e.getMessage());
+			System.out.println("Iniciando com dados vazios.");
+			empresa = new EmpresaTransporte();
+		}
 	}
 
 	public static void main(String[] args) {
@@ -106,6 +112,7 @@ public class Menu {
 		String telefone = lerTelefone("Digite o telefone do passageiro (DDD + numero): ");
 
 		empresa.cadastrarPassageiro(new Passageiro(nome, cpf, telefone));
+		empresa.salvar();
 		System.out.println("Passageiro cadastrado!");
 	}
 
@@ -122,6 +129,7 @@ public class Menu {
 		String cnh = lerCnh();
 
 		empresa.cadastrarMotorista(new Motorista(nome, cpf, telefone, cnh, veiculo));
+		empresa.salvar();
 		System.out.println("Motorista cadastrado e veiculo associado!");
 	}
 
@@ -150,6 +158,7 @@ public class Menu {
 			try {
 				Validacao.validarLugares(lugares, veiculo.getMinimoLugares(), veiculo.getMaximoLugares());
 				empresa.cadastrarVeiculo(veiculo);
+				empresa.salvar();
 				System.out.println("Veiculo cadastrado!");
 				return;
 			} catch (DadoInvalidoException e) {
@@ -228,6 +237,7 @@ public class Menu {
 		}
 
 		Corrida nova = empresa.solicitarCorrida(p, origem, destino, distancia, cat, fp);
+		empresa.salvar();
 		System.out.println("Corrida " + nova.getId() + " solicitada!");
 	}
 
@@ -244,6 +254,7 @@ public class Menu {
 		}
 
 		c.aceitar(m);
+		empresa.salvar();
 		System.out.println("Corrida " + c.getId() + " aceita pelo motorista " + m.getNome() + "!");
 	}
 
@@ -254,6 +265,7 @@ public class Menu {
 		}
 
 		c.iniciar();
+		empresa.salvar();
 		System.out.println("Corrida " + c.getId() + " iniciada!");
 	}
 
@@ -264,6 +276,7 @@ public class Menu {
 		}
 
 		c.finalizar();
+		empresa.salvar();
 		System.out.println("Corrida " + c.getId() + " finalizada!");
 		System.out.println(String.format("Valor da corrida: R$ %.2f", c.getValorBase()));
 		System.out.println("Valor final: " + c.getValorFormatado());
@@ -276,6 +289,7 @@ public class Menu {
 		}
 
 		c.cancelar();
+		empresa.salvar();
 		System.out.println("Corrida " + c.getId() + " cancelada!");
 	}
 
@@ -290,6 +304,7 @@ public class Menu {
 		String comentario = sc.nextLine().trim();
 
 		c.avaliar(nota, comentario);
+		empresa.salvar();
 		System.out.println("Avaliacao registrada!");
 	}
 

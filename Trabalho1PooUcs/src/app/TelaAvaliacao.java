@@ -101,6 +101,7 @@ public class TelaAvaliacao extends JDialog {
 		Corrida corrida = modeloCorridas.getCorrida(linha);
 		try {
 			corrida.avaliar((Integer) cmbNota.getSelectedItem(), txtComentario.getText());
+			empresa.salvar();
 
 			Motorista motorista = corrida.getMotorista();
 			JOptionPane.showMessageDialog(this, String.format("Avaliação registrada!%nMédia de %s: %.1f",

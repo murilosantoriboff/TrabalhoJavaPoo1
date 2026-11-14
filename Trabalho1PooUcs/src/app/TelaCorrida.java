@@ -248,6 +248,7 @@ public class TelaCorrida extends JDialog {
 			Corrida nova = empresa.solicitarCorrida(listaPassageiros.getSelectedValue(), txtOrigem.getText(),
 					txtDestino.getText(), distancia, (CategoriaCorrida) cmbCategoria.getSelectedItem(),
 					(FormaPagamento) cmbPagamento.getSelectedItem());
+			empresa.salvar();
 
 			JOptionPane.showMessageDialog(this, "Corrida " + nova.getId() + " solicitada!");
 			txtOrigem.setText("");
@@ -267,6 +268,7 @@ public class TelaCorrida extends JDialog {
 		}
 		try {
 			corrida.aceitar(listaMotoristas.getSelectedValue());
+			empresa.salvar();
 			JOptionPane.showMessageDialog(this, "Corrida " + corrida.getId() + " aceita por " + corrida.getMotorista().getNome() + "!");
 			atualizarAposAcao();
 		} catch (TransporteException e) {
@@ -281,6 +283,7 @@ public class TelaCorrida extends JDialog {
 		}
 		try {
 			corrida.iniciar();
+			empresa.salvar();
 			JOptionPane.showMessageDialog(this, "Corrida " + corrida.getId() + " iniciada!");
 			atualizarAposAcao();
 		} catch (TransporteException e) {
@@ -295,6 +298,7 @@ public class TelaCorrida extends JDialog {
 		}
 		try {
 			corrida.finalizar();
+			empresa.salvar();
 			JOptionPane.showMessageDialog(this, String.format("Corrida %d finalizada!%nValor da corrida: R$ %.2f%nValor final: %s",
 					corrida.getId(), corrida.getValorBase(), corrida.getValorFormatado()));
 			atualizarAposAcao();
@@ -310,6 +314,7 @@ public class TelaCorrida extends JDialog {
 		}
 		try {
 			corrida.cancelar();
+			empresa.salvar();
 			JOptionPane.showMessageDialog(this, "Corrida " + corrida.getId() + " cancelada!");
 			atualizarAposAcao();
 		} catch (TransporteException e) {

@@ -29,6 +29,26 @@ public class Corrida {
 		this.status = StatusCorrida.SOLICITADA;
 	}
 
+	Corrida(int id, Passageiro passageiro, Motorista motorista, String origem, String destino, double distancia,
+			CategoriaCorrida categoria, FormaPagamento formaPagamento, StatusCorrida status,
+			double valorBase, double valorFinal, Avaliacao avaliacao) {
+		this.id = id;
+		this.passageiro = passageiro;
+		this.motorista = motorista;
+		this.origem = origem;
+		this.destino = destino;
+		this.distancia = distancia;
+		this.categoria = categoria;
+		this.formaPagamento = formaPagamento;
+		this.status = status;
+		this.valorBase = valorBase;
+		this.valorFinal = valorFinal;
+		this.avaliacao = avaliacao;
+		if(id > contador) {
+			contador = id;
+		}
+	}
+
 	public void aceitar(Motorista m) throws TransicaoInvalidaException, MotoristaIndisponivelException, VeiculoIncompativelException {
 	    if(this.status != StatusCorrida.SOLICITADA) {
 	        throw new TransicaoInvalidaException("So e possivel aceitar uma corrida solicitada!");

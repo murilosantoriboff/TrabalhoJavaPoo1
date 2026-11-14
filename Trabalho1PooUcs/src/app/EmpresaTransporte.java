@@ -1,5 +1,6 @@
 package app;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,40 @@ public class EmpresaTransporte {
 		this.motoristas = new ArrayList<>();
 		this.veiculos = new ArrayList<>();
 		this.corridas = new ArrayList<>();
+	}
+
+	private static final Path ARQUIVO = Path.of("dados", "empresa.json");
+
+	// Le os dados gravados na execucao anterior
+	public static EmpresaTransporte carregar() throws PersistenciaException {
+		return PersistenciaJson.carregar(ARQUIVO);
+	}
+
+	public void salvar() throws PersistenciaException {
+		PersistenciaJson.salvar(this, ARQUIVO);
+	}
+
+	void restaurar(List<Passageiro> passageiros, List<Motorista> motoristas, List<Veiculo> veiculos, List<Corrida> corridas) {
+		this.passageiros = new ArrayList<>(passageiros);
+		this.motoristas = new ArrayList<>(motoristas);
+		this.veiculos = new ArrayList<>(veiculos);
+		this.corridas = new ArrayList<>(corridas);
+	}
+
+	public List<Passageiro> getPassageiros() {
+		return new ArrayList<>(passageiros);
+	}
+
+	public List<Motorista> getMotoristas() {
+		return new ArrayList<>(motoristas);
+	}
+
+	public List<Veiculo> getVeiculos() {
+		return new ArrayList<>(veiculos);
+	}
+
+	public List<Corrida> getCorridas() {
+		return new ArrayList<>(corridas);
 	}
 
 	public void cadastrarPassageiro(Passageiro p) throws DadoInvalidoException, RegistroDuplicadoException {
